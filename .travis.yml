@@ -16,5 +16,9 @@ os:
   - osx
   - linux
 
+matrix:
+  allow_failures:
+    - os: osx
+
 script:
   - npm test
