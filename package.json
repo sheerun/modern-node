@@ -9,5 +9,10 @@
   "scripts": {
     "test": "ava",
     "lint": "xo"
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false,
+    "esnext": true
   }
 }
