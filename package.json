@@ -1,0 +1,13 @@
+{
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "xo": "^0.15.1"
+  },
+  "scripts": {
+    "test": "ava",
+    "lint": "xo"
+  }
+}
