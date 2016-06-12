@@ -1,7 +1,7 @@
 ![modern-node](https://i.imgsafe.org/d3c0cbe3a4.png)
 
 [![Build Status](https://travis-ci.org/sheerun/modern-node.svg?branch=master)](https://travis-ci.org/sheerun/modern-node)
-[![Modern Node](https://img.shields.io/badge/modern-node-brightgreen.svg)](https://github.com/sheerun/modern-node)
+[![Modern Node](https://img.shields.io/badge/modern-node-brightgreen.svg)](https://img.shields.io/badge/modern-node-9BB48F.svg)
 
 > Boilerplate for modern node modules
 
