@@ -24,12 +24,11 @@ matrix:
 install:
   - ps: Install-Product node $env:nodejs_version
   - node --version && npm --version
-  - git --version && svn --version
   - npm install
 
 # Post-install test scripts.
 test_script:
-  - cmd: npm run ci
+  - cmd: npm test
 
 # Make clone much faster
 shallow_clone: true
