@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.15.2",
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "ava",
-    "lint": "xo"
+    "lint": "xo",
+    "build": "babel src --out-dir lib"
   },
   "babel": {
     "presets": [
