@@ -6,6 +6,6 @@
 
 > Boilerplate for modern node modules
 
-- Precompiling [Babel](https://babeljs.io/) (ES2015, async, transform-runtime)
+- Precompiling [Babel](https://babeljs.io/) (ES2015, ES2017, async functions, transform-runtime)
 - Linting with [XO](https://github.com/sindresorhus/xo) configured to [JavaScript Standard Style](https://github.com/feross/standard)
 - Testing with [AVA](https://github.com/avajs/ava)

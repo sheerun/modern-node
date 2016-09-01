@@ -1,4 +1,6 @@
 {
+  "name": "modern-node",
+  "version": "0.0.0",
   "license": "MIT",
   "main": "lib/index.js",
   "dependencies": {

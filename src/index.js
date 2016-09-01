@@ -1,9 +1,9 @@
 async function hello(name) {
-  return new Promise((resolve, reject) => {
-    setTimeout(function () {
+  return await new Promise(resolve => {
+    setTimeout(() => {
       resolve(`hello ${name}`)
     }, 500)
   })
 }
 
-export default hello;
+export default hello
