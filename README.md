@@ -1,4 +1,4 @@
-![Modern Node Boilerplate](https://i.imgsafe.org/d3c0cbe3a4.png)
+![Modern Node Boilerplate](https://transfer.sheerun.net/s4jOy/modern-node.png)
 
 [![Unix CI](https://img.shields.io/travis/sheerun/modern-node/master.svg?maxAge=2592000)](https://travis-ci.org/sheerun/modern-node)
 [![Windows CI](https://img.shields.io/appveyor/ci/sheerun/modern-node/master.svg)](https://ci.appveyor.com/project/sheerun/modern-node)
