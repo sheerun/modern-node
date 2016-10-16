@@ -12,7 +12,7 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-cli": "^6.14.0",
-    "babel-preset-react-app": "0.2.1",
+    "babel-preset-node-module": "^1.0.0",
     "babel-register": "^6.14.0",
     "babel-watch": "^2.0.2",
     "cross-run": "^1.0.1",
@@ -27,7 +27,7 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "node-module"
     ]
   },
   "ava": {
