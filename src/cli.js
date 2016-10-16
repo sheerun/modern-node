@@ -28,6 +28,9 @@ async function main() {
     help()
   }
 
+  const foo = {foo: 'bar'}
+  console.log(foo)
+
   const result = await hello(cli.input[0])
 
   if (cli.flags.loud) {
