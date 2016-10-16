@@ -6,7 +6,8 @@
   "bin": "lib/cli.js",
   "dependencies": {
     "babel-runtime": "^6.11.6",
-    "meow": "^3.7.0"
+    "meow": "^3.7.0",
+    "np": "^2.9.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",
