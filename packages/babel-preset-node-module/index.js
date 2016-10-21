@@ -22,8 +22,8 @@ var plugins = [
     }],
     // Polyfills the runtime needed for async/await and generators
     [require.resolve('babel-plugin-transform-runtime'), {
-      helpers: false,
-      polyfill: false,
+      helpers: true,
+      polyfill: true,
       regenerator: true,
       // Resolve the Babel runtime relative to the config.
       moduleName: path.dirname(require.resolve('babel-runtime/package'))
