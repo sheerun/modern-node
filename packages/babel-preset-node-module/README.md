@@ -1,4 +1,4 @@
-# babel-preset-modern-node
+# babel-preset-node-module
 
 This package includes the Babel preset used by [Modern Node](https://github.com/sheerun/modern-node). It includes:
 
@@ -13,13 +13,44 @@ This package includes the Babel preset used by [Modern Node](https://github.com/
 After installing babel, you can install this package as a dependency:
 
 ```
-npm install --save-dev babel-preset-modern-node
+npm install --save-dev babel-preset-node-module
 ```
 
 And configure Babel to use it by editing `.babelrc`:
 
 ```js
 {
-  "presets": ["modern-node"]
+  "presets": ["node-module"]
+}
+```
+
+### Options
+
+* `targets` - an object of browsers/environment versions to support.
+* `browsers` (array/string) - an query to select browsers (ex: last 2 versions, > 5%).
+
+See [babel-preset-env](https://github.com/babel/babel-preset-env/) for details description of these options.
+
+It defaults to current node version in development and test environment. For production babel-preset-latest is used.
+
+* `loose` (boolean) - Enable "loose" transformations
+* `modules` - Enable transformation of ES6 module syntax to another module type (Enabled by default to `"commonjs"`).
+  * Can be `false` to not transform modules, or one of `["amd", "umd", "systemjs", "commonjs"]`.
+* `debug` (boolean) - `console.log` out the targets and plugins being
+
+Example:
+
+```js
+{
+  "presets": [
+    ["node-module", {
+      "targets": {
+        "chrome": 52,
+        "browsers": "last 2 safari versions"
+      },
+      "loose": true,
+      "modules": false
+    }]
+  ]
 }
 ```
