@@ -27,11 +27,6 @@
     "prepublish": "run NODE_ENV=production in-publish && run scripts/build || not-in-publish",
     "postpublish": "rimraf lib"
   },
-  "babel": {
-    "presets": [
-      "node-module"
-    ]
-  },
   "ava": {
     "babel": "inherit",
     "require": [
