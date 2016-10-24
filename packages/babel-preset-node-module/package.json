@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-node-module",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Babel preset used by Modern Node",
   "repository": "sheerun/node-module",
   "license": "BSD-3-Clause",
@@ -21,6 +21,9 @@
     "babel-preset-env": "0.0.4",
     "babel-preset-latest": "6.14.0",
     "babel-preset-react": "6.11.1",
+    "babel-runtime": "6.11.6"
+  },
+  "peerDependencies": {
     "babel-runtime": "6.11.6"
   }
 }
