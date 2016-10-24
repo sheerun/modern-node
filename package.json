@@ -6,8 +6,7 @@
   "bin": "lib/cli.js",
   "dependencies": {
     "babel-runtime": "^6.11.6",
-    "meow": "^3.7.0",
-    "np": "^2.9.0"
+    "meow": "^3.7.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",
@@ -17,6 +16,7 @@
     "babel-watch": "^2.0.2",
     "cross-run": "^1.0.1",
     "in-publish": "^2.0.0",
+    "np": "^2.9.0",
     "xo": "^0.17.0"
   },
   "scripts": {
