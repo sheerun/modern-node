@@ -12,6 +12,10 @@
 - CLI interface with [meow](https://github.com/sindresorhus/meow)
 - Publishing with [np](https://github.com/sindresorhus/np)
 
+## Development
+
+Modern Node module is supposed to be developed on Node >= 4, but it can be deployed on any Node version, thanks to Babel precompilation.
+
 ## License
 
 MIT
