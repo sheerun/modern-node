@@ -32,7 +32,8 @@
     "postpublish": "rimraf lib"
   },
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "jest": {
     "rootDir": "./src"
