@@ -1,10 +1,9 @@
-async function hello(name) {
+async function hello (props) {
   return await new Promise(resolve => {
-    const words = { hello: 'hello' }
-    const { hello, ...rest } = { world: 'world', ...words }
+    const { name, ...rest } = { name: 'me', ...props }
     setTimeout(() => {
       resolve(`hello ${name}`)
-    }, 500)
+    }, rest.length * 100)
   })
 }
 

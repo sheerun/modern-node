@@ -7,7 +7,7 @@
 > Boilerplate for modern node modules
 
 - Precompiling [Babel](https://babeljs.io/) with [babel-preset-node-module](https://www.npmjs.com/package/babel-preset-node-module)
-- Linting with [XO](https://github.com/sindresorhus/xo) configured to [JavaScript Standard Style](https://github.com/feross/standard)
+- Linting with [standard](https://github.com/feross/standard)
 - Testing with [AVA](https://github.com/avajs/ava)
 - CLI interface with  [meow](https://github.com/sindresorhus/meow)
 - Publishing with [np](https://github.com/sindresorhus/np)

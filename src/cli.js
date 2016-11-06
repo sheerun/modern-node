@@ -18,20 +18,17 @@ const cli = meow(`
   }
 })
 
-function help() {
+function help () {
   console.log(cli.help)
   process.exit(1)
 }
 
-async function main() {
+async function main () {
   if (cli.input.length < 1) {
     help()
   }
 
-  const foo = {foo: 'bar'}
-  console.log(foo)
-
-  const result = await hello(cli.input[0])
+  const result = await hello({ name: cli.input[0] })
 
   if (cli.flags.loud) {
     console.log(result.toUpperCase())

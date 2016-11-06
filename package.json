@@ -18,13 +18,15 @@
     "in-publish": "^2.0.0",
     "np": "^2.9.0",
     "rimraf": "^2.5.4",
-    "xo": "^0.17.0"
+    "snazzy": "^5.0.0",
+    "standard": "^8.5.0"
   },
   "scripts": {
     "cli": "babel-node src/cli.js",
     "build": "babel src --out-dir lib",
     "test": "run NODE_ENV=test ava",
-    "lint": "run NODE_ENV=test xo src",
+    "lint": "run NODE_ENV=test standard src/**/*.js | snazzy",
+    "lint:fix": "run NODE_ENV=test standard src/**/*.js --fix | snazzy",
     "prepublish": "run NODE_ENV=production in-publish && run scripts/build || not-in-publish",
     "postpublish": "rimraf lib"
   },
@@ -33,11 +35,6 @@
     "require": [
       "babel-register"
     ]
-  },
-  "xo": {
-    "space": true,
-    "semicolon": false,
-    "esnext": true
   },
   "files": [
     "lib"
