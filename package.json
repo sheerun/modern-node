@@ -28,7 +28,7 @@
     "test": "run NODE_ENV=test jest",
     "lint": "run NODE_ENV=test standard src/**/*.js | snazzy",
     "lint:fix": "run NODE_ENV=test standard src/**/*.js --fix | snazzy",
-    "prepublish": "run NODE_ENV=production in-publish && run scripts/build || not-in-publish",
+    "prepublish": "in-publish && run NODE_ENV=production babel src --out-dir lib || not-in-publish",
     "postpublish": "rimraf lib"
   },
   "files": [
