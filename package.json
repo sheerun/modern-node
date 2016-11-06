@@ -9,13 +9,14 @@
     "meow": "^3.7.0"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
     "babel-cli": "^6.18.0",
+    "babel-jest": "^16.0.0",
     "babel-preset-node-module": "^1.0.10",
     "babel-register": "^6.18.0",
     "babel-watch": "^2.0.3",
     "cross-run": "^1.0.1",
     "in-publish": "^2.0.0",
+    "jest": "^16.0.2",
     "np": "^2.9.0",
     "rimraf": "^2.5.4",
     "snazzy": "^5.0.0",
@@ -24,19 +25,16 @@
   "scripts": {
     "cli": "babel-node src/cli.js",
     "build": "babel src --out-dir lib",
-    "test": "run NODE_ENV=test ava",
+    "test": "run NODE_ENV=test jest",
     "lint": "run NODE_ENV=test standard src/**/*.js | snazzy",
     "lint:fix": "run NODE_ENV=test standard src/**/*.js --fix | snazzy",
     "prepublish": "run NODE_ENV=production in-publish && run scripts/build || not-in-publish",
     "postpublish": "rimraf lib"
   },
-  "ava": {
-    "babel": "inherit",
-    "require": [
-      "babel-register"
-    ]
-  },
   "files": [
     "lib"
-  ]
+  ],
+  "jest": {
+    "rootDir": "./src"
+  }
 }

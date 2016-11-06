@@ -8,8 +8,8 @@
 
 - Precompiling [Babel](https://babeljs.io/) with [babel-preset-node-module](https://www.npmjs.com/package/babel-preset-node-module)
 - Linting with [standard](https://github.com/feross/standard)
-- Testing with [AVA](https://github.com/avajs/ava)
-- CLI interface with  [meow](https://github.com/sindresorhus/meow)
+- Testing with [jest](https://facebook.github.io/jest/)
+- CLI interface with [meow](https://github.com/sindresorhus/meow)
 - Publishing with [np](https://github.com/sindresorhus/np)
 
 ## License
