@@ -10,17 +10,17 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-jest": "^16.0.0",
+    "babel-jest": "^17.0.2",
     "babel-preset-node-module": "^1.0.10",
     "babel-register": "^6.18.0",
     "babel-watch": "^2.0.3",
     "cross-run": "^1.0.1",
     "in-publish": "^2.0.0",
-    "jest": "^16.0.2",
-    "np": "^2.9.0",
+    "jest": "^17.0.3",
+    "np": "^2.10.1",
     "rimraf": "^2.5.4",
     "snazzy": "^5.0.0",
-    "standard": "^8.5.0"
+    "standard": "^8.6.0"
   },
   "scripts": {
     "cli": "babel-node src/cli.js",
