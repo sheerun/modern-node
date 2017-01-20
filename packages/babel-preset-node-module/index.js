@@ -1,34 +1,33 @@
 'use strict'
 
+var path = require('path')
+
 function buildPreset(context, opts) {
   opts = opts || {}
 
-  var path = require('path')
-
   var plugins = [
-      // class { handleClick = () => { } }
+    // class { handleClick = () => { } }
     require.resolve('babel-plugin-transform-class-properties'),
-      // { ...todo, completed: true }
-    require.resolve('babel-plugin-transform-object-rest-spread'),
-      // function* () { yield 42; yield 43; }
-      [require.resolve('babel-plugin-transform-regenerator'), {
-        // Async functions are converted to generators by babel-preset-latest
-        async: false
-      }],
-      // Polyfills the runtime needed for async/await and generators
-      [require.resolve('babel-plugin-transform-runtime'), {
-        helpers: true,
-        polyfill: true,
-        regenerator: true
-      }],
-      // The following two plugins are currently necessary to get
-      // babel-preset-env to work with rest/spread. More info here:
-      // https://github.com/babel/babel-preset-env#caveats
-      // https://github.com/babel/babel/issues/4074
-      // const { a, ...z } = obj;
-      require.resolve('babel-plugin-transform-es2015-destructuring'),
-      // const fn = ({ a, ...otherProps }) => otherProps;
-      require.resolve('babel-plugin-transform-es2015-parameters')
+    // The following two plugins use Object.assign directly, instead of Babel's
+    // extends helper. Note that this assumes `Object.assign` is available.
+    // { ...todo, completed: true }
+    [require.resolve('babel-plugin-transform-object-rest-spread'), {
+      useBuiltIns: true
+    }],
+    // Transforms JSX
+    [require.resolve('babel-plugin-transform-react-jsx'), {
+      useBuiltIns: true
+    }],
+    // Polyfills the runtime needed for async/await and generators
+    [require.resolve('babel-plugin-transform-runtime'), {
+      helpers: true,
+      polyfill: true,
+      regenerator: true
+    }],
+    // const { a, ...z } = obj;
+    require.resolve('babel-plugin-transform-es2015-destructuring'),
+    // const fn = ({ a, ...otherProps }) => otherProps;
+    require.resolve('babel-plugin-transform-es2015-parameters')
   ]
 
   // This is similar to how `env` works in Babel:
@@ -47,6 +46,12 @@ function buildPreset(context, opts) {
   }
 
   if (env === 'development' || env === 'test') {
+    // The following two plugins are currently necessary to make React warnings
+    // include more valuable information. They are included here because they are
+    // currently not enabled in babel-preset-react. See the below threads for more info:
+    // https://github.com/babel/babel/issues/4702
+    // https://github.com/babel/babel/pull/3540#issuecomment-228673661
+    // https://github.com/facebookincubator/create-react-app/issues/989
     plugins.push([
       // Adds component stack to warning messages
       require.resolve('babel-plugin-transform-react-jsx-source'),
@@ -59,14 +64,12 @@ function buildPreset(context, opts) {
     return {
       presets: [
         // ES features necessary for user's Node version
-        [require('babel-preset-env').default, {
+        [require('babel-preset-env').default, Object.assign({}, opts, {
           targets: opts.targets || {
-            node: parseFloat(process.versions.node)
+            node: 'current'
           },
-          modules: opts.modules,
-          loose: opts.loose,
-          debug: opts.debug
-        }],
+          useBuiltIns: true
+        })],
         // JSX, Flow
         require.resolve('babel-preset-react')
       ],
@@ -81,7 +84,13 @@ function buildPreset(context, opts) {
       // JSX, Flow
       require.resolve('babel-preset-react')
     ],
-    plugins: plugins
+    plugins: plugins.concat([
+      // function* () { yield 42; yield 43; }
+      [require.resolve('babel-plugin-transform-regenerator'), {
+        // Async functions are converted to generators by babel-preset-latest
+        async: false
+      }],
+    ])
   }
 }
 
