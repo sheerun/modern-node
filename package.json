@@ -11,7 +11,7 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-jest": "^17.0.2",
-    "babel-preset-node-module": "^1.1.0",
+    "babel-preset-node-module": "^1.1.1",
     "babel-register": "^6.18.0",
     "babel-watch": "^2.0.3",
     "cross-run": "^1.0.1",
