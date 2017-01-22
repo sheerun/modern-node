@@ -15,7 +15,6 @@
     "babel-register": "^6.18.0",
     "babel-watch": "^2.0.3",
     "cross-run": "^1.0.1",
-    "in-publish": "^2.0.0",
     "jest": "^17.0.3",
     "np": "^2.10.1",
     "rimraf": "^2.5.4",
@@ -28,7 +27,7 @@
     "test": "run NODE_ENV=test jest",
     "lint": "run NODE_ENV=test standard src/**/*.js | snazzy",
     "lint:fix": "run NODE_ENV=test standard src/**/*.js --fix | snazzy",
-    "prepublish": "in-publish && run NODE_ENV=production babel src --out-dir lib || not-in-publish",
+    "prepublishOnly": "run NODE_ENV=production babel src --out-dir lib",
     "postpublish": "rimraf lib"
   },
   "files": [
