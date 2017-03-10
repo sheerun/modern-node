@@ -7,9 +7,9 @@
 > Boilerplate for modern node modules
 
 - Precompiling with [Babel](https://babeljs.io/) and [babel-preset-node-module](https://www.npmjs.com/package/babel-preset-node-module)
-- Linting with [standard](https://github.com/feross/standard)
 - Testing with [jest](https://facebook.github.io/jest/)
-- CLI interface with [meow](https://github.com/sindresorhus/meow)
+- Linting with [prettier](https://github.com/prettier/prettier)
+- CLI with [meow](https://github.com/sindresorhus/meow)
 - Publishing with [np](https://github.com/sindresorhus/np)
 
 ## Development
