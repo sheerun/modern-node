@@ -35,8 +35,6 @@ function buildPreset(context, opts) {
     ],
     // const { a, ...z } = obj;
     require.resolve('babel-plugin-transform-es2015-destructuring'),
-    // const fn = ({ a, ...otherProps }) => otherProps;
-    require.resolve('babel-plugin-transform-es2015-parameters'),
   ];
 
   // This is similar to how `env` works in Babel:

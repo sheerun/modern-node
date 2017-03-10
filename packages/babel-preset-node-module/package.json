@@ -13,7 +13,6 @@
   "dependencies": {
     "babel-plugin-transform-class-properties": "6.23.0",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
-    "babel-plugin-transform-es2015-parameters": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-jsx": "^6.23.0",
