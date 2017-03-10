@@ -26,7 +26,6 @@
     "cli": "babel-node src/cli.js",
     "build": "babel src --out-dir lib",
     "test": "run NODE_ENV=test jest",
-    "lint": "prettier --write src/**/*.js",
     "precommit": "lint-staged",
     "prepublishOnly": "run NODE_ENV=production babel src --out-dir lib",
     "postpublish": "rimraf lib"
@@ -37,7 +36,7 @@
   ],
   "lint-staged": {
     "*.js": [
-      "prettier --write",
+      "prettier --write --trailing-comma es5 --single-quote",
       "git add",
       "jest --bail --findRelatedTests"
     ]

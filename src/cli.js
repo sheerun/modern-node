@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import meow from "meow";
-import hello from "./index";
+import meow from 'meow';
+import hello from './index';
 
 const cli = meow(
   `
@@ -16,8 +16,8 @@ const cli = meow(
 `,
   {
     alias: {
-      loud: "s"
-    }
+      loud: 's',
+    },
   }
 );
 
