@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var path = require('path');
+var path = require('path')
 
 function buildPreset(context, opts) {
-  opts = opts || {};
+  opts = opts || {}
 
   var plugins = [
     // class { handleClick = () => { } }
@@ -35,7 +35,7 @@ function buildPreset(context, opts) {
     ],
     // const { a, ...z } = obj;
     require.resolve('babel-plugin-transform-es2015-destructuring'),
-  ];
+  ]
 
   // This is similar to how `env` works in Babel:
   // https://babeljs.io/docs/usage/babelrc/#env-option
@@ -43,15 +43,15 @@ function buildPreset(context, opts) {
   // https://github.com/babel/babel/issues/4539
   // https://github.com/facebookincubator/create-react-app/issues/720
   // It’s also nice that we can enforce `NODE_ENV` being specified.
-  var env = process.env.BABEL_ENV || process.env.NODE_ENV;
+  var env = process.env.BABEL_ENV || process.env.NODE_ENV
   if (env !== 'development' && env !== 'test' && env !== 'production') {
     throw new Error(
       'Using `babel-preset-react-app` requires that you specify `NODE_ENV` or ' +
         '`BABEL_ENV` environment variables. Valid values are "development", ' +
         '"test", and "production". Instead, received: ' +
         JSON.stringify(env) +
-        '.'
-    );
+        '.',
+    )
   }
 
   if (env === 'development' || env === 'test') {
@@ -66,7 +66,7 @@ function buildPreset(context, opts) {
       require.resolve('babel-plugin-transform-react-jsx-source'),
       // Adds __self attribute to JSX which React will use for some warnings
       require.resolve('babel-plugin-transform-react-jsx-self'),
-    ]);
+    ])
   }
 
   if (env === 'development' || env === 'test') {
@@ -86,7 +86,7 @@ function buildPreset(context, opts) {
         require.resolve('babel-preset-react'),
       ],
       plugins: plugins,
-    };
+    }
   }
 
   return {
@@ -106,7 +106,7 @@ function buildPreset(context, opts) {
         },
       ],
     ]),
-  };
+  }
 }
 
-module.exports = buildPreset;
+module.exports = buildPreset

@@ -19,11 +19,12 @@
     "jest": "^19.0.2",
     "lint-staged": "^3.3.1",
     "np": "^2.12.0",
-    "prettier": "^0.22.0",
+    "prettier-standard": "^1.0.5",
     "rimraf": "^2.6.1"
   },
   "scripts": {
     "cli": "babel-node src/cli.js",
+    "format": "prettier-standard 'src/**/*.js' 'packages/**/*.js'",
     "build": "babel src --out-dir lib",
     "test": "run NODE_ENV=test jest",
     "precommit": "lint-staged",
@@ -36,7 +37,7 @@
   ],
   "lint-staged": {
     "*.js": [
-      "prettier --write --trailing-comma es5 --single-quote",
+      "prettier-standard",
       "git add",
       "jest --bail --findRelatedTests"
     ]

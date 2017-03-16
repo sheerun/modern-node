@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import meow from 'meow';
-import hello from './index';
+import meow from 'meow'
+import hello from './index'
 
 const cli = meow(
   `
@@ -18,26 +18,26 @@ const cli = meow(
     alias: {
       loud: 's',
     },
-  }
-);
+  },
+)
 
 function help() {
-  console.log(cli.help);
-  process.exit(1);
+  console.log(cli.help)
+  process.exit(1)
 }
 
 async function main() {
   if (cli.input.length < 1) {
-    help();
+    help()
   }
 
-  const result = await hello({ name: cli.input[0] });
+  const result = await hello({name: cli.input[0]})
 
   if (cli.flags.loud) {
-    console.log(result.toUpperCase());
+    console.log(result.toUpperCase())
   } else {
-    console.log(result);
+    console.log(result)
   }
 }
 
-main();
+main()
