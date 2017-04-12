@@ -16,17 +16,17 @@ const cli = meow(
 `,
   {
     alias: {
-      loud: 's',
-    },
-  },
+      loud: 's'
+    }
+  }
 )
 
-function help() {
+function help () {
   console.log(cli.help)
   process.exit(1)
 }
 
-async function main() {
+async function main () {
   if (cli.input.length < 1) {
     help()
   }

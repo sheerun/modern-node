@@ -2,7 +2,7 @@
 
 var path = require('path')
 
-function buildPreset(context, opts) {
+function buildPreset (context, opts) {
   opts = opts || {}
 
   var plugins = [
@@ -14,15 +14,15 @@ function buildPreset(context, opts) {
     [
       require.resolve('babel-plugin-transform-object-rest-spread'),
       {
-        useBuiltIns: true,
-      },
+        useBuiltIns: true
+      }
     ],
     // Transforms JSX
     [
       require.resolve('babel-plugin-transform-react-jsx'),
       {
-        useBuiltIns: true,
-      },
+        useBuiltIns: true
+      }
     ],
     // Polyfills the runtime needed for async/await and generators
     [
@@ -30,11 +30,11 @@ function buildPreset(context, opts) {
       {
         helpers: true,
         polyfill: true,
-        regenerator: true,
-      },
+        regenerator: true
+      }
     ],
     // const { a, ...z } = obj;
-    require.resolve('babel-plugin-transform-es2015-destructuring'),
+    require.resolve('babel-plugin-transform-es2015-destructuring')
   ]
 
   // This is similar to how `env` works in Babel:
@@ -50,7 +50,7 @@ function buildPreset(context, opts) {
         '`BABEL_ENV` environment variables. Valid values are "development", ' +
         '"test", and "production". Instead, received: ' +
         JSON.stringify(env) +
-        '.',
+        '.'
     )
   }
 
@@ -65,7 +65,7 @@ function buildPreset(context, opts) {
       // Adds component stack to warning messages
       require.resolve('babel-plugin-transform-react-jsx-source'),
       // Adds __self attribute to JSX which React will use for some warnings
-      require.resolve('babel-plugin-transform-react-jsx-self'),
+      require.resolve('babel-plugin-transform-react-jsx-self')
     ])
   }
 
@@ -77,15 +77,15 @@ function buildPreset(context, opts) {
           require('babel-preset-env').default,
           Object.assign({}, opts, {
             targets: opts.targets || {
-              node: 'current',
+              node: 'current'
             },
-            useBuiltIns: true,
-          }),
+            useBuiltIns: true
+          })
         ],
         // JSX, Flow
-        require.resolve('babel-preset-react'),
+        require.resolve('babel-preset-react')
       ],
-      plugins: plugins,
+      plugins: plugins
     }
   }
 
@@ -94,7 +94,7 @@ function buildPreset(context, opts) {
       // Latest stable ECMAScript features
       require.resolve('babel-preset-latest'),
       // JSX, Flow
-      require.resolve('babel-preset-react'),
+      require.resolve('babel-preset-react')
     ],
     plugins: plugins.concat([
       // function* () { yield 42; yield 43; }
@@ -102,10 +102,10 @@ function buildPreset(context, opts) {
         require.resolve('babel-plugin-transform-regenerator'),
         {
           // Async functions are converted to generators by babel-preset-latest
-          async: false,
-        },
-      ],
-    ]),
+          async: false
+        }
+      ]
+    ])
   }
 }
 
