@@ -9,17 +9,17 @@
     "meow": "^3.7.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
+    "babel-cli": "^6.24.1",
     "babel-jest": "^19.0.0",
     "babel-preset-node-module": "^1.2.1",
-    "babel-register": "^6.23.0",
+    "babel-register": "^6.24.1",
     "babel-watch": "^2.0.6",
     "cross-run": "^1.0.1",
-    "husky": "^0.13.2",
+    "husky": "^0.13.3",
     "jest": "^19.0.2",
-    "lint-staged": "^3.3.1",
-    "np": "^2.12.0",
-    "prettier-standard": "^3.0.0",
+    "lint-staged": "^3.4.0",
+    "np": "^2.13.2",
+    "prettier-standard": "^4.1.0",
     "rimraf": "^2.6.1"
   },
   "scripts": {
