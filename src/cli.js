@@ -31,7 +31,7 @@ async function main () {
     help()
   }
 
-  const result = await hello({name: cli.input[0]})
+  const result = await hello({ name: cli.input[0] })
 
   if (cli.flags.loud) {
     console.log(result.toUpperCase())
