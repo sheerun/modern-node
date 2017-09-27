@@ -74,25 +74,39 @@ function buildPreset (context, opts) {
       presets: [
         // ES features necessary for user's Node version
         [
-          require('babel-preset-env').default,
+          require.resolve('babel-preset-env'),
           Object.assign({}, opts, {
-            targets: opts.targets || {
+            targets: {
               node: 'current'
             },
-            useBuiltIns: true
+            useBuiltIns: 'usage'
           })
         ],
         // JSX, Flow
         require.resolve('babel-preset-react')
       ],
-      plugins: plugins
+      plugins: plugins.concat([
+        // Compiles import() to a deferred require()
+        require.resolve('babel-plugin-dynamic-import-node')
+      ])
     }
   }
 
   return {
     presets: [
       // Latest stable ECMAScript features
-      require.resolve('babel-preset-latest'),
+      [
+        require.resolve('babel-preset-env'),
+        Object.assign({}, opts, {
+          targets: opts.targets || {
+            node: '0.10'
+          },
+          // Insert import statements polyfilling features
+          useBuiltIns: 'usage',
+          // Do not transform modules to CJS
+          modules: false
+        })
+      ],
       // JSX, Flow
       require.resolve('babel-preset-react')
     ],
@@ -101,10 +115,11 @@ function buildPreset (context, opts) {
       [
         require.resolve('babel-plugin-transform-regenerator'),
         {
-          // Async functions are converted to generators by babel-preset-latest
+          // Async functions are converted to generators by babel-preset-env
           async: false
         }
-      ]
+      ],
+      require.resolve('babel-plugin-dynamic-import-node')
     ])
   }
 }
