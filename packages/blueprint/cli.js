@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import meow from 'meow'
-import hello from './index'
+const meow = require('meow')
+const hello = require('./index')
 
 const cli = meow(
   `

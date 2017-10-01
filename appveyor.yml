@@ -10,8 +10,7 @@ init:
 # Test against these versions of Node.js.
 environment:
   matrix:
-    - nodejs_version: "4"
-    - nodejs_version: "6"
+    - nodejs_version: "8"
 
 # Finish on first failed build
 matrix:
@@ -21,11 +20,11 @@ matrix:
 install:
   - ps: Install-Product node $env:nodejs_version
   - node --version && npm --version
-  - npm install
+  - yarn --no-lockfile
 
 # Post-install test scripts.
 test_script:
-  - cmd: npm test
+  - cmd: yarn test
 
 # Make clone much faster
 shallow_clone: true
@@ -36,4 +35,4 @@ deploy: off
 
 # Cache node modules, and refresh if package.json changes
 cache:
-  - node_modules -> package.json
+ - "%LOCALAPPDATA%\\Yarn"

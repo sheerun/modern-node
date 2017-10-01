@@ -1,21 +1,8 @@
 {
-  "name": "modern-node",
-  "version": "0.0.0",
-  "license": "MIT",
-  "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
-  "bin": "lib/cli.js",
-  "dependencies": {
-    "babel-runtime": "^6.23.0",
-    "meow": "^3.7.0"
-  },
+  "private": true,
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-jest": "^21.2.0",
     "babel-preset-node-module": "^2.0.5",
-    "babel-register": "^6.24.1",
-    "babel-watch": "^2.0.6",
-    "cross-run": "^1.0.1",
     "husky": "^0.14.3",
     "jest-cli": "^21.2.0",
     "lint-staged": "^4.2.3",
@@ -24,18 +11,16 @@
     "rimraf": "^2.6.1"
   },
   "scripts": {
-    "cli": "babel-node src/cli.js",
     "format": "prettier-standard 'src/**/*.js' 'packages/**/*.js'",
-    "build": "babel src --out-dir lib",
-    "test": "run NODE_ENV=test jest",
-    "precommit": "lint-staged",
-    "prepublishOnly": "run NODE_ENV=production babel src --out-dir lib",
-    "postpublish": "rimraf lib"
+    "build": "babel packages --out-dir build --ignore node_modules",
+    "test": "jest",
+    "precommit": "lint-staged"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
+  "engines": {
+    "node": ">= 8.x",
+    "npm": ">= 3.x <= 5.x",
+    "yarn": ">= 1.1.0"
+  },
   "lint-staged": {
     "*.js": [
       "prettier-standard",
@@ -44,6 +29,8 @@
     ]
   },
   "jest": {
-    "rootDir": "./src"
-  }
+    "transformIgnorePatterns": ["/"],
+    "projects": ["<rootDir>/packages/*"]
+  },
+  "workspaces": ["packages/*"]
 }
