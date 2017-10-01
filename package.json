@@ -6,12 +6,10 @@
     "husky": "^0.14.3",
     "jest-cli": "^21.2.0",
     "lint-staged": "^4.2.3",
-    "np": "^2.16.0",
-    "prettier-standard": "^7.0.1",
-    "rimraf": "^2.6.1"
+    "prettier-standard": "^7.0.1"
   },
   "scripts": {
-    "format": "prettier-standard 'src/**/*.js' 'packages/**/*.js'",
+    "format": "prettier-standard 'packages/**/*.js'",
     "build": "babel packages --out-dir build --ignore node_modules",
     "test": "jest",
     "precommit": "lint-staged"

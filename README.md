@@ -10,7 +10,6 @@
 - Testing with [Jest](https://facebook.github.io/jest/) using [multirunner](https://facebook.github.io/jest/blog/2017/05/06/jest-20-delightful-testing-multi-project-runner.html)
 - Formatting with [prettier-standard](https://github.com/sheerun/prettier-standard)
 - Command Line Interface with [meow](https://github.com/sindresorhus/meow)
-- Publishing with [np](https://github.com/sindresorhus/np)
 - Precompiling for publishing with [Babel](https://babeljs.io/) and [babel-preset-node-module](https://www.npmjs.com/package/babel-preset-node-module)
 
 ## Development
