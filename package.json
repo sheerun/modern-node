@@ -3,6 +3,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-node-module": "^2.0.5",
+    "babel-runtime": "^6",
     "husky": "^0.14.3",
     "jest-cli": "^21.2.0",
     "lint-staged": "^4.2.3",
@@ -27,8 +28,14 @@
     ]
   },
   "jest": {
-    "transformIgnorePatterns": ["/"],
-    "projects": ["<rootDir>/packages/*"]
+    "transformIgnorePatterns": [
+      "/"
+    ],
+    "projects": [
+      "<rootDir>/packages/*"
+    ]
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ]
 }
