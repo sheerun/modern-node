@@ -16,6 +16,35 @@
 
 Modern Node module is supposed to be developed on Node >= 8, but it can be deployed on any Node version, thanks to Babel precompilation.
 
+## Usage
+
+Install and link root project and all workspaces:
+
+```
+yarn
+```
+
+Test root project and all workspaces:
+
+```
+yarn test
+```
+
+Pretty format all workspaces:
+
+```
+yarn format
+```
+
+Way to publish workspace `foobar`:
+
+```
+yarn build
+yarn test
+cd projects/foobar
+npm publish
+```
+
 ## License
 
 MIT
