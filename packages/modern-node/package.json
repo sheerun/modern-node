@@ -1,0 +1,14 @@
+{
+  "name": "modern-node",
+  "version": "0.0.1",
+  "main": "index.js",
+  "bin": "cli.js",
+  "description": "Tool what helps with modern-node projects",
+  "dependencies": {
+    "babel-polyfill": "7.0.0-beta.2",
+    "meow": "^3.7.0"
+  },
+  "engines": {
+    "node": ">= 4"
+  }
+}
