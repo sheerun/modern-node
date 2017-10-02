@@ -44,6 +44,10 @@ cd projects/foobar
 npm publish
 ```
 
+## Known issues
+
+Due to [known bug](https://github.com/babel/babel-preset-env/issues/433), you need to build project two times before publication.
+
 ## License
 
 MIT

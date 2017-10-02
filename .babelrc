@@ -3,7 +3,8 @@
     ["env", {
       "target": {
         "node": "4"
-      }
+      },
+      "useBuiltIns": "usage"
     }]
   ]
 }
