@@ -1,7 +1,7 @@
 {
   "presets": [
-    ["env", {
-      "target": {
+    ["@babel/preset-env", {
+      "targets": {
         "node": "4"
       },
       "useBuiltIns": "usage"

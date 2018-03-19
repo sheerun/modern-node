@@ -9,7 +9,7 @@
 - Monorepo approach with [Yarn workspaces](https://yarnpkg.com/en/docs/workspaces)
 - Testing with [Jest](https://facebook.github.io/jest/) using [multirunner](https://facebook.github.io/jest/blog/2017/05/06/jest-20-delightful-testing-multi-project-runner.html)
 - Formatting with [prettier-standard](https://github.com/sheerun/prettier-standard)
-- Precompiling for publication with [Babel 7](https://babeljs.io/) and [babel-preset-env](https://www.npmjs.com/package/babel-preset-env)
+- Precompiling for publication with [Babel 7](https://babeljs.io/) and [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
 
 ## Development
 
@@ -35,19 +35,14 @@ Pretty format all workspaces:
 yarn format
 ```
 
-Way to publish workspace `foobar`:
+Way to publish project `foobar`:
 
 ```
-yarn build
 yarn build
 yarn test
-cd projects/foobar
+cd out/foobar
 npm publish
-```
-
-## Known issues
-
-Due to [known bug](https://github.com/babel/babel-preset-env/issues/433), you need to build project two times before publication.
+``
 
 ## License
 
