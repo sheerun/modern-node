@@ -2,6 +2,10 @@
 
 const execa = require('execa')
 const path = require('path')
+const babel = require('@babel/core')
+const babylon = require('babylon')
+const pify = require('pify')
+const find = pify(require('enfsfind').find)
 
 const help = `Usage
   $ modern <command> <arguments>
@@ -88,10 +92,58 @@ async function main () {
     } finally {
       await fs.removeAsync(pkgPath)
     }
-    await tryExec('babel', ['package', '--out-dir', 'package'])
+
     const json = JSON.parse(
       fs.readFileSync(path.join(packageDir, 'package.json'))
     )
+
+    async function processFile(file) {
+      const source = await fs.readFileAsync(file, 'utf-8')
+      const firstLine = source.substr(0, source.indexOf('\n'))
+      const ast = babylon.parse(source, {
+        sourceType: 'module',
+        allowReturnOutsideFunction: true
+      })
+      let { code } = babel.transformFromAst(ast, source, {
+        babelrc: false,
+        retainLines: true,
+        sourceRoot: packageDir,
+        filename: file,
+        comments: false,
+        presets: [
+          [require.resolve('@babel/preset-env'), {
+            "targets": {
+              "node": "4"
+            },
+            "useBuiltIns": "usage"
+          }]
+        ]
+      })
+
+      if (firstLine.indexOf('#!') === 0) {
+        code = code.replace(/^.*\n/, `${firstLine}\n`)
+      }
+
+      await fs.writeFileAsync(file, code)
+    }
+    const files = []
+    const found = await find(packageDir, { filter: /\.js$/ })
+    found.forEach(file => files.push(file.path))
+    if (typeof json.bin === 'string') {
+      if (files.indexOf(path.join(packageDir, json.bin)) === -1) {
+        files.push(path.join(packageDir, json.bin))
+      }
+    } else if (typeof json.bin === 'object') {
+      for (const key in json.bin) {
+        if (files.indexOf(path.join(packageDir, json.bin[key])) === -1) {
+          files.push(path.join(packageDir, json.bin[key]))
+        }
+      }
+    }
+    for (const file of files) {
+      await processFile(file)
+    }
+
     if (!json.dependencies) {
       json.dependencies = {}
     }

@@ -1,15 +1,18 @@
 {
   "name": "modern-node",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "dependencies": {
     "@babel/cli": "7.0.0-beta.42",
     "@babel/core": "^7.0.0-beta.42",
     "@babel/preset-env": "7.0.0-beta.42",
+    "babylon": "7.0.0-beta.42",
+    "enfsfind": "^1.0.0",
     "execa": "^0.10.0",
     "fs-extra-promise": "^1.0.1",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
     "lint-staged": "^4.2.3",
+    "pify": "^3.0.0",
     "prettier-standard": "^8.0.0",
     "tar": "^4.4.1"
   },

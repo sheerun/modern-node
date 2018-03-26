@@ -7,37 +7,46 @@
 > Boilerplate for modern node modules
 
 - Testing with [Jest](https://facebook.github.io/jest/) using [multirunner](https://facebook.github.io/jest/blog/2017/05/06/jest-20-delightful-testing-multi-project-runner.html)
-- Formatting with [prettier-standard](https://github.com/sheerun/prettier-standard)
+- Formatting with [prettier](https://github.com/prettier/prettier) and [prettier-standard](https://github.com/sheerun/prettier-standard)
 - Precompiling for publication with [Babel 7](https://babeljs.io/) and [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
 
-## Development
+## Installation
 
-Modern Node module is supposed to be developed on Node >= 8, but it can be deployed on any Node version, thanks to Babel precompilation.
-
-## Usage
-
-Install and link root project and all workspaces:
+Install this module as development dependency"
 
 ```
 npm install --save-dev modern-node
 ```
 
-Test root project and all workspaces:
+And add appropriate scripts to your `package.json`:
 
 ```
-modern test
+{
+  "scripts": {
+    "test": "modern test",
+    "format": "modern format",
+    "build": "modern build",
+    "precommit": "modern precommit"
+  }
+}
 ```
 
-Pretty format all workspaces:
+Test your project:
 
 ```
-modern format
+yarn test
+```
+
+Pretty format your project:
+
+```
+yarn format
 ```
 
 Prepare project for publication:
 
 ```
-modern build
+yarn build
 ```
 
 Review and publish project:
