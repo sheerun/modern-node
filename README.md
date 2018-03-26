@@ -6,7 +6,6 @@
 
 > Boilerplate for modern node modules
 
-- Monorepo approach with [Yarn workspaces](https://yarnpkg.com/en/docs/workspaces)
 - Testing with [Jest](https://facebook.github.io/jest/) using [multirunner](https://facebook.github.io/jest/blog/2017/05/06/jest-20-delightful-testing-multi-project-runner.html)
 - Formatting with [prettier-standard](https://github.com/sheerun/prettier-standard)
 - Precompiling for publication with [Babel 7](https://babeljs.io/) and [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
@@ -20,29 +19,34 @@ Modern Node module is supposed to be developed on Node >= 8, but it can be deplo
 Install and link root project and all workspaces:
 
 ```
-yarn
+npm install --save-dev modern-node
 ```
 
 Test root project and all workspaces:
 
 ```
-yarn test
+modern test
 ```
 
 Pretty format all workspaces:
 
 ```
-yarn format
+modern format
 ```
 
-Way to publish project `foobar`:
+Prepare project for publication:
 
 ```
-yarn build
-yarn test
-cd out/foobar
+modern build
+```
+
+Review and publish project:
+
+```
+cd package
 npm publish
-``
+```
+
 
 ## License
 
