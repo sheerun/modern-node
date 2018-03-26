@@ -1,0 +1,7 @@
+{
+  "*.js": [
+    "modern format",
+    "git add",
+    "modern test --bail --findRelatedTests"
+  ]
+}

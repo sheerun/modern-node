@@ -1,31 +1,32 @@
 {
-  "private": true,
+  "name": "modern-node",
+  "version": "1.0.0-alpha.0",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0-beta.42",
+    "execa": "^0.10.0",
+    "jest": "^22.4.3",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.3",
+    "prettier-standard": "^8.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.42",
     "@babel/core": "^7.0.0-beta.42",
-    "@babel/preset-env": "7.0.0-beta.42",
-    "husky": "^0.14.3",
-    "jest-cli": "^21.2.0",
-    "lint-staged": "^4.2.3",
-    "prettier-standard": "^8.0.0"
+    "@babel/preset-env": "7.0.0-beta.42"
+  },
+  "bin": {
+    "modern-node": "./cli.js",
+    "modern": "./cli.js"
   },
   "scripts": {
     "format": "prettier-standard 'packages/**/*.js'",
     "build": "babel packages --out-dir out --ignore '**/node_modules'",
-    "test": "jest",
     "precommit": "lint-staged"
   },
   "engines": {
     "node": ">= 8.x",
     "npm": ">= 3.x <= 5.x",
     "yarn": ">= 1.5.1"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier-standard",
-      "git add",
-      "jest --bail --findRelatedTests"
-    ]
   },
   "jest": {
     "transformIgnorePatterns": [
@@ -34,8 +35,5 @@
     "projects": [
       "<rootDir>/packages/*"
     ]
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }
