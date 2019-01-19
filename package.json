@@ -13,7 +13,7 @@
     "jest": "^22.4.3",
     "lint-staged": "^4.2.3",
     "pify": "^3.0.0",
-    "prettier-standard": "^8.0.0",
+    "prettier-standard": "^9.1.1",
     "tar": "^4.4.1"
   },
   "bin": {

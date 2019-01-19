@@ -97,7 +97,7 @@ async function main () {
       fs.readFileSync(path.join(packageDir, 'package.json'))
     )
 
-    async function processFile(file) {
+    async function processFile (file) {
       const source = await fs.readFileAsync(file, 'utf-8')
       const firstLine = source.substr(0, source.indexOf('\n'))
       const ast = babylon.parse(source, {
@@ -111,12 +111,15 @@ async function main () {
         filename: file,
         comments: false,
         presets: [
-          [require.resolve('@babel/preset-env'), {
-            "targets": {
-              "node": "4"
-            },
-            "useBuiltIns": "usage"
-          }]
+          [
+            require.resolve('@babel/preset-env'),
+            {
+              targets: {
+                node: '4'
+              },
+              useBuiltIns: 'usage'
+            }
+          ]
         ]
       })
 
