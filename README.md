@@ -26,7 +26,7 @@ And add appropriate scripts to your `package.json`:
     "test": "modern test",
     "format": "modern format",
     "build": "modern build",
-    "precommit": "modern precommit"
+    "pre-commit": "modern precommit"
   }
 }
 ```

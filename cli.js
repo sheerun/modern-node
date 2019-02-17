@@ -13,7 +13,7 @@ const help = `Usage
 Commands:
   $ test - test project using Jest
   $ format - format project with prettier-standard
-  $ precommit - format, lint, and test staged files`
+  $ pre-commit - format, lint, and test staged files`
 
 function terminate (message) {
   message = typeof message === 'string' ? message : message.join('\n')
