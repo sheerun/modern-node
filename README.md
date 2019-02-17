@@ -6,9 +6,10 @@
 
 > Boilerplate for modern node modules
 
-- Testing with [Jest](https://facebook.github.io/jest/) using [multirunner](https://facebook.github.io/jest/blog/2017/05/06/jest-20-delightful-testing-multi-project-runner.html)
-- Formatting with [prettier](https://github.com/prettier/prettier) and [prettier-standard](https://github.com/sheerun/prettier-standard)
-- Precompiling for publication with [Babel 7](https://babeljs.io/) and [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
+- Testing with [Jest](https://facebook.github.io/jest/)
+- Formatting with [prettier](https://github.com/prettier/prettier)
+- Pre-commit hook support with [husky](https://github.com/typicode/husky)
+- Linting and formatting staged files with [lint-staged](https://github.com/okonet/lint-staged)
 
 ## Installation
 
@@ -26,7 +27,7 @@ And add appropriate scripts to your `package.json`:
     "test": "modern test",
     "format": "modern format",
     "build": "modern build",
-    "pre-commit": "modern precommit"
+    "pre-commit": "modern pre-commit"
   }
 }
 ```
@@ -41,12 +42,6 @@ Pretty format your project:
 
 ```
 yarn format
-```
-
-Prepare project for publication:
-
-```
-yarn build
 ```
 
 Review and publish project:

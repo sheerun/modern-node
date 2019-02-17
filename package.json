@@ -2,19 +2,11 @@
   "name": "modern-node",
   "version": "1.0.0-alpha.2",
   "dependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
-    "babylon": "7.0.0-beta.42",
-    "enfsfind": "^1.0.0",
     "execa": "^1.0.0",
-    "fs-extra-promise": "^1.0.1",
     "husky": "^1.3.1",
     "jest": "^24.1.0",
     "lint-staged": "^8.1.4",
-    "pify": "^4.0.1",
-    "prettier-standard": "^9.1.1",
-    "tar": "^4.4.1"
+    "prettier-standard": "^9.1.1"
   },
   "bin": {
     "modern-node": "./cli.js",
@@ -23,11 +15,11 @@
   "scripts": {
     "format": "./cli.js format",
     "test": "./cli.js test",
-    "build": "./cli.js build"
+    "build": "./cli.js build",
+    "pre-commit": "./cli.js pre-commit"
   },
   "engines": {
     "node": ">= 8",
-    "npm": ">= 3 <= 5",
-    "yarn": ">= 1.13.0"
+    "npm": ">= 3"
   }
 }
