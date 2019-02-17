@@ -1,6 +1,6 @@
 {
   "name": "modern-node",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0",
   "dependencies": {
     "execa": "^1.0.0",
     "husky": "^1.3.1",
