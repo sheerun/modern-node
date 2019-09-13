@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 
-var fs = require('fs')
 const execa = require('execa')
-const path = require('path')
-const babel = require('@babel/core')
 
-const help = `Usage
+const help = `
+Usage
   $ modern <command> <arguments>
 
 Commands:
-  $ test - test project using Jest
-  $ format - format project with prettier-standard
-  $ pre-commit - format and lint staged files`
+  $ test   - jest
+  $ format - prettier-standard --format
+  $ lint   - prettier-standard --lint
+`
 
 function terminate (message) {
   message = typeof message === 'string' ? message : message.join('\n')
@@ -22,35 +21,13 @@ function terminate (message) {
   process.exit(1)
 }
 
-async function tryExec (command, args, options) {
+function tryExec (command, args, options) {
   options = options || {}
 
-  if (!options.stdio) {
-    options.stdio = 'inherit'
-  }
+  options.stdio = 'inherit'
+  options.preferLocal = true
 
-  try {
-    return await execa(command, args, options)
-  } catch (e) {
-    const message = []
-
-    if (e.code === 'ENOENT') {
-      message.push('Binary not found: ' + command)
-    }
-
-    if (e.stdout) {
-      message.push(e.stdout)
-    }
-
-    if (e.stderr) {
-      message.push(e.stderr)
-    }
-
-    terminate(message.join('\n'))
-
-    // To make flow happy
-    return { stdout: '', stderr: '' }
-  }
+  return execa(command, args, options)
 }
 
 async function main () {
@@ -62,15 +39,12 @@ async function main () {
   }
 
   if (argv[0] === 'format') {
-    await tryExec('prettier-standard', ['**/*.js'])
+    await tryExec('prettier-standard', ['--format'])
     return
   }
 
-  if (argv[0] === 'precommit') {
-    await tryExec('lint-staged', [
-      '-c',
-      path.join(__dirname, 'config', 'lint-staged.json')
-    ])
+  if (argv[0] === 'lint') {
+    await tryExec('prettier-standard', ['--format', '--lint'])
     return
   }
 

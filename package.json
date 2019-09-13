@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "dependencies": {
     "execa": "^2.0.4",
+    "find-up": "^4.1.0",
     "jest": "*",
     "lint-staged": "^9.2.5",
     "prettier-standard": "^14.0.5",
@@ -14,10 +15,13 @@
   "scripts": {
     "install": "node src/install.js",
     "uninstall": "node src/uninstall.js",
+    "lint": "./src/cli.js lint",
     "format": "./src/cli.js format",
     "test": "./src/cli.js test",
-    "build": "./src/cli.js build",
-    "precommit": "./src/cli.js format"
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": "prettier-standard --lint"
   },
   "engines": {
     "node": ">= 8"

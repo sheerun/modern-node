@@ -11,11 +11,7 @@ try {
   }
 }
 
-if (
-  pkg &&
-  pkg.package.scripts &&
-  pkg.package.scripts.precommit
-) {
+if (pkg && pkg.package.scripts && pkg.package.scripts.precommit) {
   const script = pkg.package.scripts.precommit
 
   try {
@@ -23,6 +19,7 @@ if (
       cwd: path.dirname(pkg.path),
       env: {},
       stdio: 'inherit',
+      preferLocal: true,
       shell: true
     })
   } catch (e) {
