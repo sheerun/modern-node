@@ -18,7 +18,7 @@
 yarn add --dev modern-node
 ```
 
-> If you're using [npm][https://www.npmjs.com/]: `npm install --save-dev modern-node`.
+> If you're using [npm](https://www.npmjs.com/): `npm install --save-dev modern-node`.
 
 Now you add appropriate scripts to your `package.json`:
 
