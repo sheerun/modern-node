@@ -13,11 +13,12 @@
 
 ## Installation
 
-Install this module as development dependency:
 
 ```
-npm install --save-dev modern-node
+yarn add --dev modern-node
 ```
+
+> If you're using the [`npm`][npm]: `npm install --save-dev modern-node`.
 
 Now you add appropriate scripts to your `package.json`:
 
