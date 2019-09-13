@@ -17,7 +17,7 @@
     "format": "./src/cli.js format",
     "test": "./src/cli.js test",
     "build": "./src/cli.js build",
-    "precommit": "echo Running precommit script..."
+    "precommit": "./src/cli.js format"
   },
   "engines": {
     "node": ">= 8"
