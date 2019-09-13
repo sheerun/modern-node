@@ -1,0 +1,6 @@
+{
+  "*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}": [
+    "modern format",
+    "git add"
+  ]
+}

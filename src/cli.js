@@ -66,7 +66,7 @@ async function main () {
     return
   }
 
-  if (argv[0] === 'precommit' || argv[0] === 'pre-commit') {
+  if (argv[0] === 'precommit') {
     await tryExec('lint-staged', [
       '-c',
       path.join(__dirname, 'config', 'lint-staged.json')
