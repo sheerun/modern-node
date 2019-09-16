@@ -7,9 +7,10 @@ Usage
   $ modern <command> <arguments>
 
 Commands:
-  $ test   - jest
-  $ format - prettier-standard --format
-  $ lint   - prettier-standard --lint
+  $ test        - jest
+  $ format      - prettier-standard --format
+  $ lint        - prettier-standard --lint
+  $ precommit   - lint-staged
 `
 
 function terminate (message) {
@@ -35,6 +36,11 @@ async function main () {
 
   if (argv[0] === 'test') {
     await tryExec('jest', argv.slice(1))
+    return
+  }
+
+  if (argv[0] === 'precommit') {
+    await tryExec('lint-staged', argv.slice(1))
     return
   }
 

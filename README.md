@@ -28,7 +28,7 @@ Now you add appropriate scripts to your `package.json`:
     "test": "modern test",
     "format": "modern format",
     "lint": "modern lint",
-    "precommit": "lint-staged"
+    "precommit": "modern-precommit"
   }
 }
 ```
