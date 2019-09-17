@@ -4,7 +4,7 @@
 [![Windows CI](https://img.shields.io/appveyor/ci/sheerun/modern-node/master.svg)](https://ci.appveyor.com/project/sheerun/modern-node)
 [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
-> Pre-configured toolkit modern node modules
+> Pre-configured toolkit for modern node modules
 
 - 🃏 Testing with [Jest](https://facebook.github.io/jest/)
 - 💅 Formatting with [prettier](https://prettier.io/)
