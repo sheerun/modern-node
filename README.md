@@ -53,7 +53,7 @@ Format all files in the project with [prettier-standard](https://github.com/shee
 ```
 modern format             # format all files
 modern format --changed   # format only changed files
-modern format '**/*.js'   # format only selected
+modern format '**/*.js'   # format only selected files
 ```
 
 Format and files in the project (add `--help` for more options)
