@@ -12,6 +12,8 @@ const execSync = require('child_process').execSync
 const os = require('os')
 const glob = require('fast-glob')
 const camelcase = require('camelcase')
+const username = require('username')
+const execa = require('execa')
 
 function isInGitRepository () {
   try {
@@ -28,6 +30,21 @@ function isInMercurialRepository () {
     return true
   } catch (e) {
     return false
+  }
+}
+
+function fetchGitConfig() {
+  try {
+    const data = {}
+    const out = execa.sync('git', ['config', '--get-regexp', 'user.'])
+    out.stdout.trim().split("\n").forEach(line => {
+      const key = line.split(" ")[0]
+      const value = line.slice(key.length + 1)
+      data[key] = value
+    })
+    return data
+  } catch (e) {
+    return {}
   }
 }
 
@@ -89,6 +106,25 @@ module.exports = function (
 
   const useTypeScript = dependencies.typescript != null
 
+  const user = username.sync()
+
+  const gitConfig = fetchGitConfig()
+
+  const devDependencies = appPackage.devDependencies
+  delete appPackage.devDependencies
+
+  appPackage.version = '0.0.0'
+
+  if (gitConfig['user.name'] && gitConfig['user.email']) {
+    appPackage.author = `${gitConfig['user.name']} <${gitConfig['user.email']}>`
+  }
+
+  if (user) {
+    appPackage.repository = `${user}/${appPackage.name}`
+  }
+
+  appPackage.license = 'MIT'
+
   if (useTypeScript) {
     appPackage.main = 'lib/index.js'
     appPackage.files = ['lib']
@@ -115,7 +151,8 @@ module.exports = function (
     }
   }
 
-  appPackage.license = 'MIT'
+  // Move devDependencies to the end
+  appPackage.devDependencies = devDependencies
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),

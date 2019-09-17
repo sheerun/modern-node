@@ -12,7 +12,8 @@
     "jest-watch-typeahead": "^0.4.0",
     "lint-staged": "^9.2.5",
     "prettier-standard": "^14.0.5",
-    "read-pkg-up": "^6.0.0"
+    "read-pkg-up": "^6.0.0",
+    "username": "^5.1.0"
   },
   "bin": {
     "modern": "./src/cli.js"

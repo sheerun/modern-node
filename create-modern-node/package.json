@@ -7,7 +7,11 @@
     "cli.js",
     "index.js"
   ],
-  "repository": "sheerun/modern-node",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/sheerun/modern-node.git",
+    "directory": "create-modern-node"
+  },
   "author": "Adam Stankiewicz <sheerun@sher.pl>",
   "license": "MIT",
   "dependencies": {

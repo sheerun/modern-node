@@ -1,9 +1,9 @@
 {
   "name": "foobar",
-  "devDependencies": {
-    "modern-node": "*",
-    "typescript": "*"
-  },
+  "version": "0.0.0",
+  "author": "Adam Stankiewicz <sheerun@sher.pl>",
+  "repository": "sheerun/foobar",
+  "license": "MIT",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -17,5 +17,8 @@
   "lint-staged": {
     "*.{js,ts}": "modern format"
   },
-  "license": "MIT"
+  "devDependencies": {
+    "modern-node": "*",
+    "typescript": "*"
+  }
 }
