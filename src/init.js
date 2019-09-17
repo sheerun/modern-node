@@ -180,27 +180,20 @@ module.exports = function (
   console.log(`Success! Created ${appName} at ${appPath}`)
   console.log('Inside that directory, you can run several commands:')
   console.log()
-  console.log(chalk.cyan(`  ${displayedCommand} start`))
-  console.log('    Starts the development server.')
+  console.log(chalk.cyan(`  ${displayedCommand} format`))
+  console.log('    Formats all files in repository.')
   console.log()
-  console.log(chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}build`))
-  console.log('    Bundles the app into static files for production.')
+  console.log(chalk.cyan(`  ${displayedCommand} lint`))
+  console.log('    Formats and lints all files in repository')
   console.log()
   console.log(chalk.cyan(`  ${displayedCommand} test`))
-  console.log('    Starts the test runner.')
+  console.log('    Runs all tests with Jest.')
   console.log()
-  console.log(chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}eject`))
-  console.log(
-    '    Removes this tool and copies build dependencies, configuration files'
-  )
-  console.log(
-    '    and scripts into the app directory. If you do this, you can’t go back!'
-  )
   console.log()
   console.log('We suggest that you begin by typing:')
   console.log()
   console.log(chalk.cyan('  cd'), cdpath)
-  console.log(`  ${chalk.cyan(`${displayedCommand} start`)}`)
+  console.log(`  ${chalk.cyan(`${displayedCommand} test`)}`)
   if (readmeExists) {
     console.log()
     console.log(
@@ -211,4 +204,7 @@ module.exports = function (
   }
   console.log()
   console.log('Happy hacking!')
+  console.log()
+  console.log('btw. We are open to suggestions how to improve modern-node!')
+  console.log('Please submit an issue on https://github.com/sheerun/modern-node')
 }

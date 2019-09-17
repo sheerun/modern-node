@@ -54,7 +54,10 @@ async function main () {
   }
 
   if (argv[0] === 'lint') {
-    await tryExec('prettier-standard', ['--format', '--lint'].concat(argv.slice(1)))
+    await tryExec(
+      'prettier-standard',
+      ['--format', '--lint'].concat(argv.slice(1))
+    )
     return
   }
 
