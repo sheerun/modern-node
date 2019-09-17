@@ -107,11 +107,11 @@ module.exports = function (
 
   if (useTypeScript) {
     appPackage['lint-staged'] = {
-      '*.js': 'modern format'
+      '*.{js,ts}': 'modern format'
     }
   } else {
     appPackage['lint-staged'] = {
-      '*.{js,ts}': 'modern format'
+      '*.js': 'modern format'
     }
   }
 
