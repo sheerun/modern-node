@@ -11,14 +11,22 @@
 - 🌟 Linting with [eslint](https://eslint.org/) configured on [standard](https://standardjs.com/) rules
 - 🐶 Automatically runs `precommit` script from `package.json` from when committing code
 
-## Installation
+## Installation (new projects)
 
+```
+yarn create modern-node my-module
+```
+
+> If you're using [npm](https://www.npmjs.com/): `npm init modern-node my-module`.
+
+## Installation (existing projects)
 
 ```
 yarn add --dev modern-node
 ```
 
 > If you're using [npm](https://www.npmjs.com/): `npm install --save-dev modern-node`.
+
 
 Now you add appropriate scripts to your `package.json`:
 
