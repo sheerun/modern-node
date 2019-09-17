@@ -41,7 +41,7 @@ function tryGitInit (appPath) {
     didInit = true
 
     execSync('git add -A', { stdio: 'ignore' })
-    execSync('git commit -m "Initial commit from Create React App"', {
+    execSync('git commit -m "Initial commit on master..."', {
       stdio: 'ignore'
     })
     return true
@@ -104,6 +104,8 @@ module.exports = function (
       '*.{js,ts}': 'modern format'
     }
   }
+
+  appPackage.license = 'MIT'
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
@@ -206,5 +208,7 @@ module.exports = function (
   console.log('Happy hacking!')
   console.log()
   console.log('btw. We are open to suggestions how to improve modern-node!')
-  console.log('Please submit an issue on https://github.com/sheerun/modern-node')
+  console.log(
+    'Please submit an issue on https://github.com/sheerun/modern-node'
+  )
 }

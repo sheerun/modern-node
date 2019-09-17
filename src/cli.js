@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+// Makes the script crash on unhandled rejections instead of silently
+// ignoring them. In the future, promise rejections that are not handled will
+// terminate the Node.js process with a non-zero exit code.
+process.on('unhandledRejection', err => {
+  throw err
+})
+
 const execa = require('execa')
 
 const help = `
@@ -7,7 +14,7 @@ Usage
   $ modern <command> <arguments>
 
 Commands:
-  $ test        - jest
+  $ test        - jest --watchAll
   $ format      - prettier-standard --format
   $ lint        - prettier-standard --lint
   $ precommit   - lint-staged
@@ -39,7 +46,7 @@ async function main () {
   var argv = process.argv.slice(2)
 
   if (argv[0] === 'test') {
-    await tryExec('jest', argv.slice(1))
+    require('./test')
     return
   }
 
