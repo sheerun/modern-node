@@ -1,6 +1,6 @@
 {
   "name": "modern-node",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "dependencies": {
     "chalk": "^2.4.2",
     "execa": "^2.0.4",
