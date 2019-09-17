@@ -165,8 +165,7 @@ function createApp (
 
   const packageJson = {
     name: appName,
-    version: '0.1.0',
-    private: true
+    version: '1.0.0-beta.0'
   }
   fs.writeFileSync(
     path.join(root, 'package.json'),
