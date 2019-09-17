@@ -27,7 +27,6 @@ yarn add --dev modern-node
 
 > If you're using [npm](https://www.npmjs.com/): `npm install --save-dev modern-node`.
 
-
 Now you add appropriate scripts to your `package.json`:
 
 ```
@@ -40,6 +39,8 @@ Now you add appropriate scripts to your `package.json`:
   }
 }
 ```
+
+## Usage
 
 Test your project (watch mode):
 
