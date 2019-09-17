@@ -20,7 +20,7 @@
     "lint": "./src/cli.js lint",
     "format": "./src/cli.js format",
     "test": "./src/cli.js test",
-    "precommit": "./src/cli.js precommit"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.js": "prettier-standard --lint"
