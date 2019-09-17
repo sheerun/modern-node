@@ -42,25 +42,35 @@ Now you add appropriate scripts to your `package.json`:
 
 ## Usage
 
-Test your project (watch mode):
+Test your project with Jest (watch mode):
 
 ```
-yarn test
+modern test
 ```
 
-Format all files in the project (add `--help` for more options)
+Format all files in the project with [prettier-standard](https://github.com/sheerun/prettier-standard) (add `--help` for more options)
 
 ```
-yarn format             # format all files
-yarn format --changed   # format only changed files
+modern format             # format all files
+modern format --changed   # format only changed files
+modern format '**/*.js'   # format only selected
 ```
 
 Format and files in the project (add `--help` for more options)
 
 ```
-yarn lint             # lint all files
-yarn lint --changed   # lint only changed files
+modern lint             # lint all files
+modern lint --changed   # lint only changed files
+modern lint '**/*.js'   # lint only selected files
 ```
+
+Format and lint staged changes (useful to put into `precommit` script)
+
+```
+modern precommit
+```
+
+For now linted extensions can be configured with `lint-staged` option in `package.json`.
 
 ## License
 
