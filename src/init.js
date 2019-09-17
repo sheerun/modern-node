@@ -10,6 +10,8 @@ const path = require('path')
 const chalk = require('chalk')
 const execSync = require('child_process').execSync
 const os = require('os')
+const glob = require('fast-glob')
+const camelcase = require('camelcase')
 
 function isInGitRepository () {
   try {
@@ -83,9 +85,17 @@ module.exports = function (
   const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'))
 
   // Copy over some of the devDependencies
-  appPackage.dependencies = appPackage.dependencies || {}
+  const dependencies = appPackage.devDependencies || {}
 
-  const useTypeScript = appPackage.dependencies.typescript != null
+  const useTypeScript = dependencies.typescript != null
+
+  if (useTypeScript) {
+    appPackage.main = 'src/index.js'
+    appPackage.files = ['src']
+  } else {
+    appPackage.main = 'lib/index.js'
+    appPackage.files = ['lib']
+  }
 
   // Setup the script rules
   appPackage.scripts = {
@@ -133,13 +143,13 @@ module.exports = function (
     return
   }
 
-  replaceInFile(path.join(appPath, 'README.md'), data =>
-    data.replace(/{{name}}/g, appPackage.name)
-  )
-
-  replaceInFile(path.join(appPath, 'test', 'index.js'), data =>
-    data.replace(/{{name}}/g, appPackage.name)
-  )
+  glob.sync(['**/*.{md,js,ts}'], { cwd: appPath }).forEach(filename => {
+    replaceInFile(path.join(appPath, filename), data =>
+      data
+        .replace(/{{jsName}}/g, camelcase(appPackage.name))
+        .replace(/{{name}}/g, appPackage.name)
+    )
+  })
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   // See: https://github.com/npm/npm/issues/1862

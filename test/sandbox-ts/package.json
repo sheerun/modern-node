@@ -1,0 +1,21 @@
+{
+  "name": "foobar",
+  "devDependencies": {
+    "modern-node": "*",
+    "typescript": "*"
+  },
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "modern test",
+    "format": "modern format",
+    "lint": "modern lint",
+    "precommit": "modern precommit"
+  },
+  "lint-staged": {
+    "*.js": "modern format"
+  },
+  "license": "MIT"
+}

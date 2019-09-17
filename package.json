@@ -2,8 +2,10 @@
   "name": "modern-node",
   "version": "2.0.0-beta.4",
   "dependencies": {
+    "camelcase": "^5.3.1",
     "chalk": "^2.4.2",
     "execa": "^2.0.4",
+    "fast-glob": "^3.0.4",
     "find-up": "^4.1.0",
     "fs-extra": "^8.1.0",
     "jest": "*",
@@ -21,7 +23,8 @@
     "lint": "./src/cli.js lint",
     "format": "./src/cli.js format",
     "test": "./src/cli.js test",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "test": "test/cli"
   },
   "lint-staged": {
     "*.js": "prettier-standard --lint"

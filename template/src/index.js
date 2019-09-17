@@ -1,3 +1,5 @@
-module.exports = function () {
-  console.log('Hello world!')
+function {{jsName}} () {
+  return true
 }
+
+module.exports = {{jsName}}
