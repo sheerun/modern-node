@@ -4,9 +4,9 @@
     "modern-node": "*",
     "typescript": "*"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "files": [
-    "src"
+    "lib"
   ],
   "scripts": {
     "test": "modern test",
@@ -15,7 +15,7 @@
     "precommit": "modern precommit"
   },
   "lint-staged": {
-    "*.js": "modern format"
+    "*.{js,ts}": "modern format"
   },
   "license": "MIT"
 }

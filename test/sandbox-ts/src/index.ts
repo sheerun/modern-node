@@ -1,4 +1,4 @@
-function foobar () {
+function foobar() {
   return true
 }
 
