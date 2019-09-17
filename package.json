@@ -1,6 +1,6 @@
 {
   "name": "modern-node",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "dependencies": {
     "camelcase": "^5.3.1",
     "chalk": "^2.4.2",
@@ -22,9 +22,8 @@
     "uninstall": "node src/uninstall.js",
     "lint": "./src/cli.js lint",
     "format": "./src/cli.js format",
-    "test": "./src/cli.js test",
-    "precommit": "lint-staged",
-    "test": "test/cli"
+    "test": "test/cli",
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.js": "prettier-standard --lint"
