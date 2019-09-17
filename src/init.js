@@ -33,15 +33,18 @@ function isInMercurialRepository () {
   }
 }
 
-function fetchGitConfig() {
+function fetchGitConfig () {
   try {
     const data = {}
     const out = execa.sync('git', ['config', '--get-regexp', 'user.'])
-    out.stdout.trim().split("\n").forEach(line => {
-      const key = line.split(" ")[0]
-      const value = line.slice(key.length + 1)
-      data[key] = value
-    })
+    out.stdout
+      .trim()
+      .split('\n')
+      .forEach(line => {
+        const key = line.split(' ')[0]
+        const value = line.slice(key.length + 1)
+        data[key] = value
+      })
     return data
   } catch (e) {
     return {}
@@ -143,11 +146,11 @@ module.exports = function (
 
   if (useTypeScript) {
     appPackage['lint-staged'] = {
-      '*.{js,ts}': 'modern format'
+      '*.{js,ts}': ['modern lint', 'git add']
     }
   } else {
     appPackage['lint-staged'] = {
-      '*.js': 'modern format'
+      '*.js': ['modern lint', 'git add']
     }
   }
 

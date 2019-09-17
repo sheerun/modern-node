@@ -27,7 +27,10 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": "prettier-standard --lint"
+    "*.js": [
+      "prettier-standard --lint",
+      "git add"
+    ]
   },
   "engines": {
     "node": ">= 8"
