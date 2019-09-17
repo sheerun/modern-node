@@ -64,17 +64,9 @@ function tryGitInit (appPath) {
 }
 
 function replaceInFile (filename, process) {
-  fs.readFile(filename, 'utf8', function (err, data) {
-    if (err) {
-      return console.log(err)
-    }
-
-    var result = process(data)
-
-    fs.writeFile(filename, result, 'utf8', function (err) {
-      if (err) return console.log(err)
-    })
-  })
+  const data = fs.readFileSync(filename, 'utf8')
+  const result = process(data)
+  fs.writeFileSync(filename, result, 'utf8')
 }
 
 module.exports = function (
