@@ -28,21 +28,29 @@ Now you add appropriate scripts to your `package.json`:
     "test": "modern test",
     "format": "modern format",
     "lint": "modern lint",
-    "precommit": "modern-precommit"
+    "precommit": "modern precommit"
   }
 }
 ```
 
-Test your project:
+Test your project (watch mode):
 
 ```
 yarn test
 ```
 
-Pretty format your project:
+Format all files in the project (add `--help` for more options)
 
 ```
-yarn format
+yarn format             # format all files
+yarn format --changed   # format only changed files
+```
+
+Format and files in the project (add `--help` for more options)
+
+```
+yarn lint             # lint all files
+yarn lint --changed   # lint only changed files
 ```
 
 ## License
