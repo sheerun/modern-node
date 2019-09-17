@@ -8,8 +8,8 @@
     "index.js"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/sheerun/modern-node.git",
+    "type": "git",
+    "url": "https://github.com/sheerun/modern-node.git",
     "directory": "create-modern-node"
   },
   "author": "Adam Stankiewicz <sheerun@sher.pl>",

@@ -1,8 +1,9 @@
 # {{name}}
 
+[![Build Status](https://travis-ci.org/{{username}}/{{name}}.svg?branch=master)](https://travis-ci.org/{{username}}/{{name}})
 [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
-Short package description
+> Short package description
 
 ## Installation
 

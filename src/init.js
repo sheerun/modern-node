@@ -188,6 +188,7 @@ module.exports = function (
       data
         .replace(/{{jsName}}/g, camelcase(appPackage.name))
         .replace(/{{name}}/g, appPackage.name)
+        .replace(/{{username}}/g, user)
     )
   })
 
