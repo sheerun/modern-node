@@ -28,7 +28,11 @@ function tryExec (command, args, options) {
   options.stdio = 'inherit'
   options.preferLocal = true
 
-  return execa(command, args, options)
+  try {
+    return execa.sync(command, args, options)
+  } catch (e) {
+    process.exit(e.exitCode || 1)
+  }
 }
 
 async function main () {
@@ -45,12 +49,12 @@ async function main () {
   }
 
   if (argv[0] === 'format') {
-    await tryExec('prettier-standard', ['--format'])
+    await tryExec('prettier-standard', ['--format'].concat(argv.slice(1)))
     return
   }
 
   if (argv[0] === 'lint') {
-    await tryExec('prettier-standard', ['--format', '--lint'])
+    await tryExec('prettier-standard', ['--format', '--lint'].concat(argv.slice(1)))
     return
   }
 
