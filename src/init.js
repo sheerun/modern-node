@@ -90,11 +90,11 @@ module.exports = function (
   const useTypeScript = dependencies.typescript != null
 
   if (useTypeScript) {
-    appPackage.main = 'src/index.js'
-    appPackage.files = ['src']
-  } else {
     appPackage.main = 'lib/index.js'
     appPackage.files = ['lib']
+  } else {
+    appPackage.main = 'src/index.js'
+    appPackage.files = ['src']
   }
 
   // Setup the script rules
