@@ -55,3 +55,5 @@ run('test/sandbox-ts')
 console.log('Linking...')
 execSync('yarn link modern-node', { cwd: 'test/sandbox' })
 execSync('yarn link modern-node', { cwd: 'test/sandbox-ts' })
+
+process.exit(0)
