@@ -42,13 +42,13 @@ Now you add appropriate scripts to your `package.json`:
 
 ## Usage
 
-Test your project with Jest (watch mode):
+Test your project with Jest (watch mode, unless running on CI server):
 
 ```
 modern test
 ```
 
-Format all files in the project with [prettier-standard](https://github.com/sheerun/prettier-standard) (add `--help` for more options)
+Format all files in the project with [prettier-standard](https://github.com/sheerun/prettier-standard) (add `--help` for more options):
 
 ```
 modern format             # format all files
@@ -56,7 +56,7 @@ modern format --changed   # format only changed files
 modern format '**/*.js'   # format only selected files
 ```
 
-Format and files in the project (add `--help` for more options)
+Format and files in the project (add `--help` for more options):
 
 ```
 modern lint             # lint all files
@@ -64,7 +64,7 @@ modern lint --changed   # lint only changed files
 modern lint '**/*.js'   # lint only selected files
 ```
 
-Format and lint staged changes (useful to put into `precommit` script)
+Format and lint staged changes (useful to put into `precommit` script):
 
 ```
 modern precommit
