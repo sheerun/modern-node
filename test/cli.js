@@ -1,18 +1,23 @@
 const fs = require('fs-extra')
 const execSync = require('child_process').execSync
 
-execSync('yarn link')
-
 console.log('Creating...')
 fs.removeSync('test/sandbox')
 fs.mkdirpSync('test/sandbox')
+execSync('git init', { cwd: 'test/sandbox' })
 fs.writeFileSync(
   'test/sandbox/package.json',
   JSON.stringify(
     {
       name: 'foobar',
       devDependencies: {
-        'modern-node': '*'
+        'modern-node': 'file:../..'
+      },
+      scripts: {
+        format: 'modern format',
+        lint: 'modern lint',
+        test: 'modern test',
+        precommit: 'modern precommit'
       }
     },
     null,
@@ -22,14 +27,18 @@ fs.writeFileSync(
 
 fs.removeSync('test/sandbox-ts')
 fs.mkdirpSync('test/sandbox-ts')
+execSync('git init', { cwd: 'test/sandbox-ts' })
 fs.writeFileSync(
   'test/sandbox-ts/package.json',
   JSON.stringify(
     {
       name: 'foobar',
       devDependencies: {
-        'modern-node': '*',
+        'modern-node': 'file:../..',
         typescript: '*'
+      },
+      scripts: {
+        precommit: 'modern precommit'
       }
     },
     null,
@@ -37,23 +46,13 @@ fs.writeFileSync(
   )
 )
 
-function run (dir) {
-  const path = require('path')
-  const root = path.resolve(__dirname, '..', dir)
-  const appName = 'sandbox'
-  const verbose = false
-  const originalDirectory = path.resolve(__dirname, '..')
-  const template = null
-  const data = [root, appName, verbose, originalDirectory, template]
-  var init = require('../src/init.js')
-  init.apply(null, data)
-}
+execSync('yarn', { cwd: 'test/sandbox' })
+execSync('yarn format', { cwd: 'test/sandbox' })
+execSync('yarn lint', { cwd: 'test/sandbox' })
+execSync('echo console.log(   12) > index.js', { cwd: 'test/sandbox' })
+execSync('git add -A', { cwd: 'test/sandbox' })
+execSync('git commit -m test', { cwd: 'test/sandbox' })
 
-run('test/sandbox')
-run('test/sandbox-ts')
-
-console.log('Linking...')
-execSync('yarn link modern-node', { cwd: 'test/sandbox' })
-execSync('yarn link modern-node', { cwd: 'test/sandbox-ts' })
+// execSync('yarn', { cwd: 'test/sandbox-ts' })
 
 process.exit(0)

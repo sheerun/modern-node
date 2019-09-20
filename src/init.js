@@ -15,24 +15,6 @@ const camelcase = require('camelcase')
 const username = require('username')
 const execa = require('execa')
 
-function isInGitRepository () {
-  try {
-    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
-    return true
-  } catch (e) {
-    return false
-  }
-}
-
-function isInMercurialRepository () {
-  try {
-    execSync('hg --cwd . root', { stdio: 'ignore' })
-    return true
-  } catch (e) {
-    return false
-  }
-}
-
 function fetchGitConfig () {
   try {
     const data = {}
@@ -54,17 +36,19 @@ function fetchGitConfig () {
 function tryGitInit (appPath) {
   let didInit = false
   try {
-    execSync('git --version', { stdio: 'ignore' })
-    if (isInGitRepository() || isInMercurialRepository()) {
+    const hasGit = fs.existsSync(path.join(appPath, '.git'))
+    const hasHg = fs.existsSync(path.join(appPath, '.hg'))
+    if (hasGit || hasHg) {
       return false
     }
 
-    execSync('git init', { stdio: 'ignore' })
+    execSync('git init', { stdio: 'ignore', cwd: appPath })
     didInit = true
 
-    execSync('git add -A', { stdio: 'ignore' })
+    execSync('git add -A', { stdio: 'ignore', cwd: appPath })
     execSync('git commit -m "Initial commit on master..."', {
-      stdio: 'ignore'
+      stdio: 'ignore',
+      cwd: appPath
     })
     return true
   } catch (e) {

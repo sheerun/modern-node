@@ -81,7 +81,10 @@ if (!fs.existsSync(hooks)) fs.mkdirSync(hooks)
 // important.
 const precommit = path.join(hooks, 'pre-commit')
 const precommitPath = path.join(__dirname, 'precommit.js')
-const precommitRelativeUnixPath = precommitPath.replace(root, '.')
+const precommitRelativeUnixPath = path.relative(
+  path.join(git, '..'),
+  precommitPath
+)
 if (fs.existsSync(precommit) && !fs.lstatSync(precommit).isSymbolicLink()) {
   const body = fs.readFileSync(precommit)
 
@@ -99,27 +102,19 @@ try {
 } catch (e) {}
 
 const hook = path.join(__dirname, 'hook')
-let hookRelativeUnixPath = hook.replace(root, '.')
+let hookRelativeUnixPath = path.relative(path.join(git, '..'), hook)
 if (os.platform() === 'win32') {
   hookRelativeUnixPath = hookRelativeUnixPath.replace(/[\\/]+/g, '/')
 }
 
-const precommitContent =
-  '#!/usr/bin/env bash' +
-  os.EOL +
-  '[ -f "' +
-  hookRelativeUnixPath +
-  '" ] && ' +
-  hookRelativeUnixPath +
-  ' ' +
-  precommitRelativeUnixPath +
-  os.EOL +
-  'RESULT=$?' +
-  os.EOL +
-  '[ $RESULT -ne 0 ] && exit 1' +
-  os.EOL +
-  'exit 0' +
-  os.EOL
+const precommitContent = `#!/usr/bin/env bash
+
+set -e
+
+if [[ -f "${hookRelativeUnixPath}" && -f "${precommitRelativeUnixPath}" ]]; then
+  "${hookRelativeUnixPath}" "${precommitRelativeUnixPath}"
+fi
+`.replace('\n', os.EOL)
 
 // It could be that we do not have rights to this folder which could cause the
 // installation of this module to completely fail. We should just output the

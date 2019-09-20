@@ -3,6 +3,7 @@ const fs = require('fs')
 const findUp = require('find-up')
 
 function getGitFolderPath (root) {
+  root = path.normalize(root.split('node_modules')[0])
   let git = findUp.sync('.git', { type: 'directory', cwd: root })
 
   // Resolve git directory for submodules
