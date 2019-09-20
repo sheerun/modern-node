@@ -207,7 +207,43 @@ function createApp (
     useYarn,
     usePnp,
     useTypescript
-  )
+  ).catch(reason => {
+    console.log()
+    console.log('Aborting installation.')
+    if (reason.command) {
+      console.log(`  ${chalk.cyan(reason.command)} has failed.`)
+    } else {
+      console.log(chalk.red('Unexpected error. Please report it as a bug:'))
+      console.log(reason)
+    }
+    console.log()
+
+    // On 'exit' we will delete these files from target directory.
+    const knownGeneratedFiles = ['package.json', 'yarn.lock', 'node_modules']
+    const currentFiles = fs.readdirSync(path.join(root))
+    currentFiles.forEach(file => {
+      knownGeneratedFiles.forEach(fileToMatch => {
+        // This removes all knownGeneratedFiles.
+        if (file === fileToMatch) {
+          console.log(`Deleting generated file... ${chalk.cyan(file)}`)
+          fs.removeSync(path.join(root, file))
+        }
+      })
+    })
+    const remainingFiles = fs.readdirSync(path.join(root))
+    if (!remainingFiles.length) {
+      // Delete target folder if empty
+      console.log(
+        `Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(
+          path.resolve(root, '..')
+        )}`
+      )
+      process.chdir(path.resolve(root, '..'))
+      fs.removeSync(path.join(root))
+    }
+    console.log('Done.')
+    process.exit(1)
+  })
 }
 
 function shouldUseYarn () {
@@ -281,7 +317,59 @@ function install (root, useYarn, usePnp, dependencies, verbose, isOnline) {
   })
 }
 
-function run (
+function isInGitRepository () {
+  try {
+    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+function isInMercurialRepository () {
+  try {
+    execSync('hg --cwd . root', { stdio: 'ignore' })
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+function tryGitInit (appPath) {
+  let didInit = false
+  try {
+    execSync('git --version', { stdio: 'ignore' })
+    if (isInGitRepository() || isInMercurialRepository()) {
+      return false
+    }
+
+    execSync('git init', { stdio: 'ignore' })
+    didInit = true
+
+    execSync('git add -A', { stdio: 'ignore' })
+    execSync('git commit -m "Initial commit on master..."', {
+      stdio: 'ignore'
+    })
+    return true
+  } catch (e) {
+    if (didInit) {
+      // If we successfully initialized but couldn't commit,
+      // maybe the commit author config is not set.
+      // In the future, we might supply our own committer
+      // like Ember CLI does, but for now, let's just
+      // remove the Git files to avoid a half-done state.
+      try {
+        // unlinkSync() doesn't work on directories.
+        fs.removeSync(path.join(appPath, '.git'))
+      } catch (removeErr) {
+        // Ignore.
+      }
+    }
+    return false
+  }
+}
+
+async function run (
   root,
   appName,
   version,
@@ -292,101 +380,46 @@ function run (
   usePnp,
   useTypescript
 ) {
-  getInstallPackage(version, originalDirectory).then(packageToInstall => {
-    const allDependencies = [packageToInstall]
-    if (useTypescript) {
-      allDependencies.push('typescript')
-    }
+  if (tryGitInit(root)) {
+    console.log()
+    console.log('Initialized a git repository.')
+  }
 
-    console.log('Installing packages. This might take a couple of minutes.')
-    getPackageName(packageToInstall)
-      .then(packageName =>
-        checkIfOnline(useYarn).then(isOnline => ({
-          isOnline: isOnline,
-          packageName: packageName
-        }))
-      )
-      .then(info => {
-        const isOnline = info.isOnline
-        const packageName = info.packageName
-        console.log(`Installing ${chalk.cyan(packageName)}...`)
-        console.log()
+  const packageToInstall = await getInstallPackage(version, originalDirectory)
+  const allDependencies = [packageToInstall]
+  if (useTypescript) {
+    allDependencies.push('typescript')
+  }
 
-        return install(
-          root,
-          useYarn,
-          usePnp,
-          allDependencies,
-          verbose,
-          isOnline
-        ).then(() => packageName)
-      })
-      .then(async packageName => {
-        checkNodeVersion(packageName)
-        setCaretRangeForRuntimeDeps(packageName)
+  console.log('Installing packages. This might take a couple of minutes.')
+  const packageName = await getPackageName(packageToInstall)
+  const isOnline = await checkIfOnline(useYarn)
 
-        const pnpPath = path.resolve(process.cwd(), '.pnp.js')
+  console.log(`Installing ${chalk.cyan(packageName)}...`)
+  console.log()
 
-        const nodeArgs = fs.existsSync(pnpPath) ? ['--require', pnpPath] : []
+  await install(root, useYarn, usePnp, allDependencies, verbose, isOnline)
+  checkNodeVersion(packageName)
+  setCaretRangeForRuntimeDeps(packageName)
 
-        await executeNodeScript(
-          {
-            cwd: process.cwd(),
-            args: nodeArgs
-          },
-          [root, appName, verbose, originalDirectory, template],
-          `
-        var init = require('${packageName}/src/init.js');
-        init.apply(null, JSON.parse(process.argv[1]));
-      `
-        )
-      })
-      .catch(reason => {
-        console.log()
-        console.log('Aborting installation.')
-        if (reason.command) {
-          console.log(`  ${chalk.cyan(reason.command)} has failed.`)
-        } else {
-          console.log(chalk.red('Unexpected error. Please report it as a bug:'))
-          console.log(reason)
-        }
-        console.log()
+  const pnpPath = path.resolve(process.cwd(), '.pnp.js')
 
-        // On 'exit' we will delete these files from target directory.
-        const knownGeneratedFiles = [
-          'package.json',
-          'yarn.lock',
-          'node_modules'
-        ]
-        const currentFiles = fs.readdirSync(path.join(root))
-        currentFiles.forEach(file => {
-          knownGeneratedFiles.forEach(fileToMatch => {
-            // This removes all knownGeneratedFiles.
-            if (file === fileToMatch) {
-              console.log(`Deleting generated file... ${chalk.cyan(file)}`)
-              fs.removeSync(path.join(root, file))
-            }
-          })
-        })
-        const remainingFiles = fs.readdirSync(path.join(root))
-        if (!remainingFiles.length) {
-          // Delete target folder if empty
-          console.log(
-            `Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(
-              path.resolve(root, '..')
-            )}`
-          )
-          process.chdir(path.resolve(root, '..'))
-          fs.removeSync(path.join(root))
-        }
-        console.log('Done.')
-        process.exit(1)
-      })
-  })
+  const nodeArgs = fs.existsSync(pnpPath) ? ['--require', pnpPath] : []
+
+  await executeNodeScript(
+    {
+      cwd: process.cwd(),
+      args: nodeArgs
+    },
+    [root, appName, verbose, originalDirectory, template],
+    `
+  var init = require('${packageName}/src/init.js');
+  init.apply(null, JSON.parse(process.argv[1]));
+`
+  )
 }
 
 function getInstallPackage (version, originalDirectory) {
-  console.log(version)
   let packageToInstall = 'modern-node'
   const validSemver = semver.valid(version)
   if (validSemver) {
