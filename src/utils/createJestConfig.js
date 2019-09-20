@@ -19,8 +19,10 @@ module.exports = (resolve, rootDir, isEjecting) => {
 
     setupFilesAfterEnv: setupTestsFile ? [setupTestsFile] : [],
     testMatch: [
-      '<rootDir>/{src,test}/**/__tests__/**/*.{js,jsx,ts,tsx}',
-      '<rootDir>/{src,test}/**/*.{spec,test}.{js,jsx,ts,tsx}'
+      '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
+      '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
+      '<rootDir>/test/**/__tests__/**/*.{js,jsx,ts,tsx}',
+      '<rootDir>/test/**/*.{spec,test}.{js,jsx,ts,tsx}'
     ],
     testEnvironment: 'jest-environment-node',
     transformIgnorePatterns: [
