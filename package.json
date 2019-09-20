@@ -23,7 +23,7 @@
     "uninstall": "node src/uninstall.js",
     "lint": "./src/cli.js lint",
     "format": "./src/cli.js format",
-    "test": "node ./test/cli.js",
+    "test": "node ./src/cli.js test --watchAll=false",
     "precommit": "lint-staged"
   },
   "lint-staged": {
