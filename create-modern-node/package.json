@@ -1,6 +1,6 @@
 {
   "name": "create-modern-node",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Initialize an app with modern-node",
   "bin": "cli.js",
   "files": [
