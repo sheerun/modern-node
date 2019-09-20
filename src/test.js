@@ -3,12 +3,8 @@ process.env.BABEL_ENV = 'test'
 process.env.NODE_ENV = 'test'
 
 const jest = require('jest')
-const cp = require('child_process')
+const execSync = require('child_process').execSync
 let argv = process.argv.slice(2)
-
-function execSync (command, args) {
-  return cp.execSync(command, { maxBuffer: 10 * 1024 * 1024, ...args })
-}
 
 function isInGitRepository () {
   try {
