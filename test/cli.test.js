@@ -40,6 +40,10 @@ it('works for js repository', () => {
     cwd: 'test/sandbox'
   })
 
+  execSync('ls -lah 1>&2', { cwd: 'test/sandbox' })
+  execSync('ls -lah 1>&2', { cwd: 'test/sandbox/.git/hooks' })
+  execSync('cat pre-commit 1>&2', { cwd: 'test/sandbox/.git/hooks' })
+
   const contents = fs.readFileSync('test/sandbox/index.js', 'utf-8')
   expect(contents).toEqual('console.log(12)' + os.EOL)
 })
