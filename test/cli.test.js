@@ -1,6 +1,10 @@
 const fs = require('fs-extra')
-const execSync = require('child_process').execSync
+const cp = require('child_process')
 const os = require('os')
+
+function execSync (command, args) {
+  return cp.execSync(command, { maxBuffer: 10 * 1024 * 1024, ...args })
+}
 
 it('works for js repository', () => {
   console.log('Creating...')
