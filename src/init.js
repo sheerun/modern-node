@@ -45,11 +45,6 @@ function tryGitInit (appPath) {
     execSync('git init', { stdio: 'ignore', cwd: appPath })
     didInit = true
 
-    execSync('git add -A', { stdio: 'ignore', cwd: appPath })
-    execSync('git commit -m "Initial commit on master..."', {
-      stdio: 'ignore',
-      cwd: appPath
-    })
     return true
   } catch (e) {
     if (didInit) {
@@ -198,6 +193,16 @@ module.exports = function (
   if (tryGitInit(appPath)) {
     console.log()
     console.log('Initialized a git repository.')
+  }
+
+  const hasGit = fs.existsSync(path.join(appPath, '.git'))
+
+  if (hasGit) {
+    execSync('git add -A', { stdio: 'ignore', cwd: appPath })
+    execSync('git commit -m "Initial commit on master..." --no-verify', {
+      stdio: 'ignore',
+      cwd: appPath
+    })
   }
 
   // Display the most elegant way to cd.
