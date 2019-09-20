@@ -1,6 +1,6 @@
 {
   "name": "modern-node",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "dependencies": {
     "camelcase": "^5.3.1",
     "chalk": "^2.4.2",
