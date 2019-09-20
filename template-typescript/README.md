@@ -8,10 +8,10 @@
 ## Installation
 
 ```
-yarn add --dev {{name}}
+yarn add {{name}}
 ```
 
-> If you're using [npm](https://www.npmjs.com/) you can use: `npm install --save-dev {{name}}`.
+> If you're using [npm](https://www.npmjs.com/) you can use: `npm install {{name}}`.
 
 ## Usage
 
