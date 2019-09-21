@@ -41,9 +41,9 @@ it('works for js repository', () => {
     )
   )
 
-  execSync('yarn', { cwd })
-  execSync('yarn format', { cwd })
-  execSync('yarn lint', { cwd })
+  execSync('npm install', { cwd })
+  execSync('npm run format', { cwd })
+  execSync('npm run lint', { cwd })
   execSync('echo "console.log(   12);" > index.js', { cwd })
   execSync('git add -A', { cwd })
   execSync('git commit -m test', { cwd })
