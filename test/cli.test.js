@@ -52,7 +52,7 @@ it('works for js repository', () => {
 
   execSync('npm install', { cwd })
   execSync('npm run format', { cwd })
-  execSync('cat .gitignore', { cwd })
+  execSync('ls -lah', { cwd })
   execSync('npm run lint', { cwd })
   execSync('echo "console.log(   12);" > index.js', { cwd })
   execSync('git add -A', { cwd })
