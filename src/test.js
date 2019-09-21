@@ -1,28 +1,16 @@
+const path = require('path')
+const fs = require('fs')
+const jest = require('jest')
+
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'test'
 process.env.NODE_ENV = 'test'
 
-const jest = require('jest')
-const execSync = require('child_process').execSync
+// This is not necessary after eject because we embed config into package.json.
+const createJestConfig = require('./utils/createJestConfig')
+const paths = require('./paths')
+
 let argv = process.argv.slice(2)
-
-function isInGitRepository () {
-  try {
-    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
-    return true
-  } catch (e) {
-    return false
-  }
-}
-
-function isInMercurialRepository () {
-  try {
-    execSync('hg --cwd . root', { stdio: 'ignore' })
-    return true
-  } catch (e) {
-    return false
-  }
-}
 
 // Watch unless on CI or explicitly running all tests
 if (
@@ -30,14 +18,13 @@ if (
   argv.indexOf('--watchAll') === -1 &&
   argv.indexOf('--watchAll=false') === -1
 ) {
-  const hasSourceControl = isInGitRepository() || isInMercurialRepository()
+  const hasGit = fs.existsSync(path.join(paths.appPath, '.git'))
+  const hasHg = fs.existsSync(path.join(paths.appPath, '.hg'))
+
+  const hasSourceControl = hasGit || hasHg
   argv.push(hasSourceControl ? '--watch' : '--watchAll')
 }
 
-// This is not necessary after eject because we embed config into package.json.
-const createJestConfig = require('./utils/createJestConfig')
-const path = require('path')
-const paths = require('./paths')
 argv.push(
   '--config',
   JSON.stringify(
