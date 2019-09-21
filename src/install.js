@@ -102,10 +102,7 @@ try {
 } catch (e) {}
 
 const hook = path.join(__dirname, 'hook')
-let hookRelativeUnixPath = path.relative(path.join(git, '..'), hook)
-if (os.platform() === 'win32') {
-  hookRelativeUnixPath = hookRelativeUnixPath.replace(/[\\/]+/g, '/')
-}
+const hookRelativeUnixPath = path.relative(path.join(git, '..'), hook)
 
 const precommitContent = `#!/usr/bin/env bash
 
