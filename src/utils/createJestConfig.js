@@ -13,8 +13,6 @@ module.exports = (resolve, rootDir, isEjecting) => {
     : undefined
 
   const config = {
-    roots: ['<rootDir>/src', '<rootDir>/test'],
-
     collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
 
     setupFilesAfterEnv: setupTestsFile ? [setupTestsFile] : [],
