@@ -361,7 +361,6 @@ async function run (
   useTypescript
 ) {
   if (tryGitInit(root)) {
-    console.log()
     console.log('Initialized a git repository.')
   }
 
@@ -371,12 +370,10 @@ async function run (
     allDependencies.push('typescript')
   }
 
-  console.log('Installing packages. This might take a couple of minutes.')
   const packageName = await getPackageName(packageToInstall)
   const isOnline = await checkIfOnline(useYarn)
 
   console.log(`Installing ${chalk.cyan(packageName)}...`)
-  console.log()
 
   await install(root, useYarn, usePnp, allDependencies, verbose, isOnline)
   checkNodeVersion(packageName)
@@ -636,7 +633,6 @@ function isSafeToCreateProjectIn (root, name) {
     '.gitlab-ci.yml',
     '.gitattributes'
   ]
-  console.log()
 
   const conflicts = fs
     .readdirSync(root)
@@ -652,11 +648,9 @@ function isSafeToCreateProjectIn (root, name) {
     console.log(
       `The directory ${chalk.green(name)} contains files that could conflict:`
     )
-    console.log()
     for (const file of conflicts) {
       console.log(`  ${file}`)
     }
-    console.log()
     console.log(
       'Either try using a new directory name, or remove the files listed above.'
     )

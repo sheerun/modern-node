@@ -161,14 +161,17 @@ module.exports = function (
     return
   }
 
-  glob.sync(['**/*.{md,js,ts}'], { cwd: appPath }).forEach(filename => {
-    replaceInFile(path.join(appPath, filename), data =>
-      data
-        .replace(/{{jsName}}/g, camelcase(appPackage.name))
-        .replace(/{{name}}/g, appPackage.name)
-        .replace(/{{username}}/g, user)
-    )
-  })
+  glob
+    .sync(['**/*.{md,js,ts}', 'LICENSE'], { cwd: appPath })
+    .forEach(filename => {
+      replaceInFile(path.join(appPath, filename), data =>
+        data
+          .replace(/{{jsName}}/g, camelcase(appPackage.name))
+          .replace(/{{name}}/g, appPackage.name)
+          .replace(/{{username}}/g, user)
+          .replace(/{{fullname}}/g, gitConfig['user.name'])
+      )
+    })
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   // See: https://github.com/npm/npm/issues/1862

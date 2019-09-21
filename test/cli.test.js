@@ -18,17 +18,12 @@ function execSync (command, args) {
 it('works for js repository', () => {
   const cwd = tmpdir + '/sandbox'
 
-  const version = require('../package.json').version
-
-  execSync('npm pack', { cwd: process.cwd() })
-
   fs.removeSync(cwd)
   execSync(
-    `npm init modern-node sandbox --modern-version ${path.resolve(
-      process.cwd(),
-      'modern-node-' + version + '.tgz'
-    )}`,
-    { cwd: tmpdir }
+    `npm init modern-node sandbox --modern-version file:${process.cwd()}`,
+    {
+      cwd: tmpdir
+    }
   )
   execSync('npm run format', { cwd })
   execSync('ls -lah', { cwd })
