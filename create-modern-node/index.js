@@ -397,16 +397,6 @@ async function run (
   init.apply(null, JSON.parse(process.argv[1]));
 `
   )
-
-  const hasGit = fs.existsSync(path.join(root, '.git'))
-
-  if (hasGit) {
-    execSync('git add -A', { stdio: 'ignore', cwd: root })
-    execSync('git commit -m "Initial commit on master..."', {
-      stdio: 'ignore',
-      cwd: root
-    })
-  }
 }
 
 function getInstallPackage (version, originalDirectory) {
