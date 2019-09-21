@@ -23,36 +23,16 @@ it('works for js repository', () => {
   execSync('npm pack', { cwd: process.cwd() })
 
   fs.removeSync(cwd)
-  fs.mkdirpSync(cwd)
-  execSync('git init', { cwd })
-  fs.writeFileSync(
-    tmpdir + '/sandbox/package.json',
-    JSON.stringify(
-      {
-        name: 'foobar',
-        devDependencies: {
-          'modern-node':
-            'file:' +
-            path.resolve(__dirname, '..', 'modern-node-' + version + '.tgz')
-        },
-        scripts: {
-          format: 'modern format',
-          lint: 'modern lint',
-          test: 'modern test',
-          precommit: 'modern precommit'
-        },
-        'lint-staged': {
-          '*.js': 'modern lint'
-        }
-      },
-      null,
-      2
-    )
+  execSync(
+    `node ${process.cwd()}/create-modern-node/cli.js sandbox  --modern-version ${path.resolve(
+      process.cwd(),
+      'modern-node-' + version + '.tgz'
+    )}`,
+    { cwd: tmpdir }
   )
-
-  execSync('npm install', { cwd })
   execSync('npm run format', { cwd })
   execSync('ls -lah', { cwd })
+  execSync('cat .gitignore', { cwd })
   execSync('npm run lint', { cwd })
   execSync('echo "console.log(   12);" > index.js', { cwd })
   execSync('git add -A', { cwd })
