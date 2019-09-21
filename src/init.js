@@ -33,39 +33,33 @@ function fetchGitConfig () {
   }
 }
 
-function tryGitInit (appPath) {
-  let didInit = false
-  try {
-    const hasGit = fs.existsSync(path.join(appPath, '.git'))
-    const hasHg = fs.existsSync(path.join(appPath, '.hg'))
-    if (hasGit || hasHg) {
+function tryGitInitAndCommit (appPath) {
+  let hasGit = fs.existsSync(path.join(appPath, '.git'))
+  const hasHg = fs.existsSync(path.join(appPath, '.hg'))
+
+  if (!hasGit && !hasHg) {
+    try {
+      execSync('git init', { stdio: 'ignore', cwd: appPath })
+      hasGit = true
+    } catch (e) {
+      console.error('Failed initialize git...')
+      console.error(e.message)
+      return
+    }
+  }
+
+  if (hasGit) {
+    try {
+      execSync('git add -A', { stdio: 'ignore', cwd: appPath })
+      execSync('git commit -m "Initial commit on master..."', {
+        stdio: 'ignore',
+        cwd: appPath
+      })
+      return true
+    } catch (e) {
+      console.error('Failed commit, probably git user is not configurd...')
       return false
     }
-
-    execSync('git init', { stdio: 'ignore', cwd: appPath })
-    didInit = true
-
-    execSync('git add -A', { stdio: 'ignore', cwd: appPath })
-    execSync('git commit -m "Initial commit on master..."', {
-      stdio: 'ignore',
-      cwd: appPath
-    })
-    return true
-  } catch (e) {
-    if (didInit) {
-      // If we successfully initialized but couldn't commit,
-      // maybe the commit author config is not set.
-      // In the future, we might supply our own committer
-      // like Ember CLI does, but for now, let's just
-      // remove the Git files to avoid a half-done state.
-      try {
-        // unlinkSync() doesn't work on directories.
-        fs.removeSync(path.join(appPath, '.git'))
-      } catch (removeErr) {
-        // Ignore.
-      }
-    }
-    return false
   }
 }
 
@@ -195,7 +189,7 @@ module.exports = function (
     }
   }
 
-  if (tryGitInit(appPath)) {
+  if (tryGitInitAndCommit(appPath)) {
     console.log()
     console.log('Initialized a git repository.')
   }
