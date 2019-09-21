@@ -8,12 +8,19 @@ tmp.setGracefulCleanup()
 var tmpdir = tmp.dirSync().name
 
 function execSync (command, args) {
-  return cp.execSync(command, { maxBuffer: 20 * 1024 * 1024, ...args })
+  return cp.execSync(command, {
+    maxBuffer: 20 * 1024 * 1024,
+    stdio: 'inherit',
+    ...args
+  })
 }
 
 it('works for js repository', () => {
   const cwd = tmpdir + '/sandbox'
-  console.log(cwd)
+
+  const version = require('../package.json').version
+
+  execSync('npm pack', { cwd: process.cwd() })
 
   fs.removeSync(cwd)
   fs.mkdirpSync(cwd)
@@ -24,7 +31,9 @@ it('works for js repository', () => {
       {
         name: 'foobar',
         devDependencies: {
-          'modern-node': 'file:' + path.resolve(__dirname, '..')
+          'modern-node':
+            'file:' +
+            path.resolve(__dirname, '..', 'modern-node-' + version + '.tgz')
         },
         scripts: {
           format: 'modern format',
