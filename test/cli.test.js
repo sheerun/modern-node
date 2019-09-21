@@ -1,29 +1,39 @@
 const fs = require('fs-extra')
 const cp = require('child_process')
+const tmp = require('tmp')
+const path = require('path')
 const os = require('os')
 
+tmp.setGracefulCleanup()
+var tmpdir = tmp.dirSync().name
+
 function execSync (command, args) {
-  return cp.execSync(command, { maxBuffer: 10 * 1024 * 1024, ...args })
+  return cp.execSync(command, { maxBuffer: 20 * 1024 * 1024, ...args })
 }
 
 it('works for js repository', () => {
-  console.log('Creating...')
-  fs.removeSync('test/sandbox')
-  fs.mkdirpSync('test/sandbox')
-  execSync('git init', { cwd: 'test/sandbox' })
+  const cwd = tmpdir + '/sandbox'
+  console.log(cwd)
+
+  fs.removeSync(cwd)
+  fs.mkdirpSync(cwd)
+  execSync('git init', { cwd })
   fs.writeFileSync(
-    'test/sandbox/package.json',
+    tmpdir + '/sandbox/package.json',
     JSON.stringify(
       {
         name: 'foobar',
         devDependencies: {
-          'modern-node': 'file:../..'
+          'modern-node': 'file:' + path.resolve(__dirname, '..')
         },
         scripts: {
           format: 'modern format',
           lint: 'modern lint',
           test: 'modern test',
           precommit: 'modern precommit'
+        },
+        'lint-staged': {
+          '*.js': 'modern lint'
         }
       },
       null,
@@ -31,19 +41,17 @@ it('works for js repository', () => {
     )
   )
 
-  execSync('yarn', { cwd: 'test/sandbox' })
-  execSync('yarn format', { cwd: 'test/sandbox' })
-  execSync('yarn lint', { cwd: 'test/sandbox' })
-  execSync('echo "console.log(   12);" > index.js', { cwd: 'test/sandbox' })
-  execSync('git add -A', { cwd: 'test/sandbox' })
-  execSync('git commit -m test --author "User <user@example.com>"', {
-    cwd: 'test/sandbox'
-  })
+  execSync('yarn', { cwd })
+  execSync('yarn format', { cwd })
+  execSync('yarn lint', { cwd })
+  execSync('echo "console.log(   12);" > index.js', { cwd })
+  execSync('git add -A', { cwd })
+  execSync('git commit -m test', { cwd })
 
-  execSync('ls -lah 1>&2', { cwd: 'test/sandbox' })
-  execSync('ls -lah 1>&2', { cwd: 'test/sandbox/.git/hooks' })
-  execSync('cat pre-commit 1>&2', { cwd: 'test/sandbox/.git/hooks' })
+  execSync('ls -lah 1>&2', { cwd })
+  execSync('ls -lah 1>&2', { cwd: path.join(cwd, '.git/hooks') })
+  execSync('cat pre-commit 1>&2', { cwd: path.join(cwd, '.git/hooks') })
 
-  const contents = fs.readFileSync('test/sandbox/index.js', 'utf-8')
+  const contents = fs.readFileSync(cwd + '/index.js', 'utf-8')
   expect(contents).toEqual('console.log(12)' + os.EOL)
 })

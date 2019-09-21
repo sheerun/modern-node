@@ -40,5 +40,8 @@
     "template",
     "typescript-template"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "tmp": "^0.1.0"
+  }
 }
