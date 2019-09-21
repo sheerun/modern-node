@@ -1,4 +1,3 @@
-console.log('INSTALL')
 const fs = require('fs')
 const path = require('path')
 const os = require('os')
@@ -17,12 +16,9 @@ if (isCi && !env.FORCE_POSTINSTALL) {
   return
 }
 
-console.log('no ci')
 const root = path.resolve(__dirname, '..')
 const git = getGitFolderPath(root)
 
-console.log(root)
-console.log(git)
 // Bail out if we don't have an `.git` directory as the hooks will not get
 // triggered. If we do have directory create a hooks folder if it doesn't exist.
 if (!git) {
@@ -43,7 +39,6 @@ try {
   }
 }
 
-console.log(pkg)
 if (!pkg) {
   return
 }
@@ -81,7 +76,6 @@ if (pkg.husky && pkg.husky.hooks && pkg.husky['pre-commit']) {
 const hooks = path.join(git, 'hooks')
 if (!fs.existsSync(hooks)) fs.mkdirSync(hooks)
 
-console.log(hooks)
 // If there's an existing `pre-commit` hook we want to back it up instead of
 // overriding it and losing it completely as it might contain something
 // important.
@@ -91,9 +85,6 @@ const precommitRelativeUnixPath = path.relative(
   path.join(git, '..'),
   precommitPath
 )
-console.log(precommit)
-console.log(precommitPath)
-console.log(precommitRelativeUnixPath)
 if (fs.existsSync(precommit) && !fs.lstatSync(precommit).isSymbolicLink()) {
   const body = fs.readFileSync(precommit)
 
