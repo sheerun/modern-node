@@ -13,8 +13,7 @@ const isCi =
   env.BUILD_NUMBER || // Jenkins, TeamCity
   env.RUN_ID
 
-console.log('run')
-if (isCi) {
+if (isCi && !env.FORCE_POSTINSTALL) {
   return
 }
 
