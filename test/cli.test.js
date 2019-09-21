@@ -24,7 +24,7 @@ it('works for js repository', () => {
 
   fs.removeSync(cwd)
   execSync(
-    `node ${process.cwd()}/create-modern-node/cli.js sandbox  --modern-version ${path.resolve(
+    `npm init modern-node sandbox --modern-version ${path.resolve(
       process.cwd(),
       'modern-node-' + version + '.tgz'
     )}`,
