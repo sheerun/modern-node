@@ -1,6 +1,6 @@
 # ![Modern Node](http://i.imgur.com/PqQAqwO.png) [![Unix CI](https://img.shields.io/travis/sheerun/modern-node/master.svg)](https://travis-ci.org/sheerun/modern-node) [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
-> Pre-configured toolkit for modern node modules
+> Toolkit for creating node modules with Jest testing, Prettier formatting, and Standard linting
 
 - 🃏 Testing with [Jest](https://facebook.github.io/jest/)
 - 💅 Formatting with [prettier](https://prettier.io/)
