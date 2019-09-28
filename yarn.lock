@@ -3569,10 +3569,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier-standard@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/prettier-standard/-/prettier-standard-15.0.0.tgz#0b54b09058d531e97990ee8ae4c4be887c077aea"
-  integrity sha512-S0kOD3lbhdsSN3g7feG9TwwdGPF4CrsvDb+kepHKQvb+B84lgZmZfvSZIwWAY5Une3DCCoWh/R4jjkhHDC2Lww==
+prettier-standard@^15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/prettier-standard/-/prettier-standard-15.0.1.tgz#c07f3c31852782a9d213535ecb15a24e284ae587"
+  integrity sha512-uT/+SeoioaGh1+pyY28P5mYJTlhzdPRScYJ1SlrhLwuB6ejP06h1SaBpCLae35zoIP7Tf4YM/px8b3bClWwVrg==
   dependencies:
     chalk "^2.4.2"
     diff "^4.0.1"
