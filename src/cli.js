@@ -17,7 +17,7 @@ Commands:
   $ test        - jest --watchAll
   $ format      - prettier-standard --format
   $ lint        - prettier-standard --lint
-  $ precommit   - lint-staged
+  $ precommit   - prettier-standard --lint --staged
 `
 
 function terminate (message) {
@@ -51,7 +51,7 @@ async function main () {
   }
 
   if (argv[0] === 'precommit') {
-    await tryExec('lint-staged', argv.slice(1))
+    await tryExec('prettier-standard', ['--lint', '--staged'].concat(argv.slice(1)))
     return
   }
 
@@ -63,7 +63,7 @@ async function main () {
   if (argv[0] === 'lint') {
     await tryExec(
       'prettier-standard',
-      ['--format', '--lint'].concat(argv.slice(1))
+      ['--lint'].concat(argv.slice(1))
     )
     return
   }

@@ -10,8 +10,7 @@
     "fs-extra": "^8.1.0",
     "jest": "^24.9.0",
     "jest-watch-typeahead": "^0.4.0",
-    "lint-staged": "^9.2.5",
-    "prettier-standard": "^14.0.7",
+    "prettier-standard": "^14.1.1",
     "read-pkg-up": "^6.0.0",
     "username": "^5.1.0"
   },
@@ -23,14 +22,8 @@
     "uninstall": "node src/uninstall.js",
     "lint": "./src/cli.js lint",
     "format": "./src/cli.js format",
-    "test": "node ./src/cli.js test --watchAll=false",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier-standard --lint",
-      "git add"
-    ]
+    "test": "node ./src/cli.js test",
+    "precommit": "./src/cli.js precommit"
   },
   "engines": {
     "node": ">= 8"

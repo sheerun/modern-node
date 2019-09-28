@@ -122,16 +122,6 @@ module.exports = function (
     precommit: 'modern precommit'
   }
 
-  if (useTypeScript) {
-    appPackage['lint-staged'] = {
-      '*.{js,ts}': ['modern lint', 'git add']
-    }
-  } else {
-    appPackage['lint-staged'] = {
-      '*.js': ['modern lint', 'git add']
-    }
-  }
-
   // Move devDependencies to the end
   appPackage.devDependencies = devDependencies
 
