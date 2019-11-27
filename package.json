@@ -1,6 +1,6 @@
 {
   "name": "modern-node",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "dependencies": {
     "camelcase": "^5.3.1",
     "chalk": "^2.4.2",
@@ -10,7 +10,7 @@
     "fs-extra": "^8.1.0",
     "jest": "^24.9.0",
     "jest-watch-typeahead": "^0.4.0",
-    "prettier-standard": "^15.0.1",
+    "prettier-standard": "^16.0.0",
     "read-pkg-up": "^6.0.0",
     "username": "^5.1.0"
   },
