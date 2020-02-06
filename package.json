@@ -8,8 +8,8 @@
     "fast-glob": "^3.0.4",
     "find-up": "^4.1.0",
     "fs-extra": "^8.1.0",
-    "jest": "^24.9.0",
-    "jest-watch-typeahead": "^0.4.0",
+    "jest": "^25.1.0",
+    "jest-watch-typeahead": "^0.4.2",
     "prettier-standard": "^15.0.1",
     "read-pkg-up": "^6.0.0",
     "username": "^5.1.0"
