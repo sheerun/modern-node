@@ -31,7 +31,7 @@ let pkg
 try {
   const result = readPkgUp.sync({ cwd: path.dirname(git), normalize: false })
   if (result) {
-    pkg = result.package
+    pkg = result.packageJson
   }
 } catch (err) {
   if (err.code !== 'ENOENT') {

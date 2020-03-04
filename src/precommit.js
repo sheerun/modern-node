@@ -11,8 +11,13 @@ try {
   }
 }
 
-if (pkg && pkg.package.scripts && pkg.package.scripts.precommit) {
-  const script = pkg.package.scripts.precommit
+if (
+  pkg &&
+  pkg.packageJson &&
+  pkg.packageJson.scripts &&
+  pkg.packageJson.scripts.precommit
+) {
+  const script = pkg.packageJson.scripts.precommit
 
   try {
     execa.sync(script, {
