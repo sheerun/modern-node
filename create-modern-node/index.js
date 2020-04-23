@@ -596,12 +596,12 @@ function setCaretRangeForRuntimeDeps (packageName) {
   const packagePath = path.join(process.cwd(), 'package.json')
   const packageJson = require(packagePath)
 
-  if (typeof packageJson.dependencies === 'undefined') {
+  if (typeof packageJson.devDependencies === 'undefined') {
     console.error(chalk.red('Missing dependencies in package.json'))
     process.exit(1)
   }
 
-  const packageVersion = packageJson.dependencies[packageName]
+  const packageVersion = packageJson.devDependencies[packageName]
   if (typeof packageVersion === 'undefined') {
     console.error(chalk.red(`Unable to find ${packageName} in package.json`))
     process.exit(1)
