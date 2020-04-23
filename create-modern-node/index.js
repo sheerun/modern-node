@@ -259,7 +259,7 @@ function install (root, useYarn, usePnp, dependencies, verbose, isOnline) {
     let args
     if (useYarn) {
       command = 'yarnpkg'
-      args = ['add', '--exact']
+      args = ['add', '--exact', '--dev']
       if (!isOnline) {
         args.push('--offline')
       }
@@ -287,6 +287,7 @@ function install (root, useYarn, usePnp, dependencies, verbose, isOnline) {
         '--save',
         '--save-exact',
         '--loglevel',
+        '--dev',
         'error'
       ].concat(dependencies)
 
