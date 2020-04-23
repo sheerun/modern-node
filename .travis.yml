@@ -5,9 +5,9 @@ env:
     - FORCE_POSTINSTALL=true
 
 node_js:
+  - '14'
   - '12'
   - '10'
-  - '8'
 
 before_install:
   - node --version
