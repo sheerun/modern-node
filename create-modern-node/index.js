@@ -24,25 +24,19 @@ const errorLogFilePatterns = [
   'yarn-debug.log'
 ]
 
-let projectName
-
 const program = new commander.Command(packageJson.name)
   .version(packageJson.version)
   .arguments('<project-directory>')
   .usage(`${chalk.green('<project-directory>')} [options]`)
-  .action(name => {
-    projectName = name
-  })
   .option('--verbose', 'print additional logs')
   .option('--info', 'print environment debug info')
   .option(
-    '--modern-version <alternative-package>',
+    '--modern-version <alternativepackage>',
     'use a non-standard version of modern-node'
   )
   .option('--use-npm')
   .option('--use-pnp')
   .option('--typescript')
-  .allowUnknownOption()
   .on('--help', () => {
     console.log(`    Only ${chalk.green('<project-directory>')} is required.`)
     console.log()
@@ -99,6 +93,8 @@ if (program.info) {
     .then(console.log)
 }
 
+const projectName = program.args[0]
+
 if (typeof projectName === 'undefined') {
   console.error('Please specify the project directory:')
   console.log(
@@ -130,6 +126,7 @@ const hiddenProgram = new commander.Command()
     '(internal usage only, DO NOT RELY ON THIS) ' +
       'use a non-standard application template'
   )
+  .allowUnknownOption()
   .parse(process.argv)
 
 createApp(
