@@ -158,7 +158,6 @@ function createApp (
   }
 
   console.log(`Creating a new Node module in ${chalk.green(root)}.`)
-  console.log()
 
   const packageJson = {
     name: appName,
