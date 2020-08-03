@@ -14,7 +14,7 @@ Usage
   $ modern <command> <arguments>
 
 Commands:
-  $ test        - jest --watchAll
+  $ test        - jest
   $ format      - prettier-standard
   $ lint        - prettier-standard --lint
   $ precommit   - prettier-standard --lint --staged

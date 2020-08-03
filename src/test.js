@@ -1,5 +1,4 @@
 const path = require('path')
-const fs = require('fs')
 const jest = require('jest')
 
 // Do this as the first thing so that any code reading it knows the right env.
@@ -11,19 +10,6 @@ const createJestConfig = require('./utils/createJestConfig')
 const paths = require('./paths')
 
 let argv = process.argv.slice(2)
-
-// Watch unless on CI or explicitly running all tests
-if (
-  !process.env.CI &&
-  argv.indexOf('--watchAll') === -1 &&
-  argv.indexOf('--watchAll=false') === -1
-) {
-  const hasGit = fs.existsSync(path.join(paths.appPath, '.git'))
-  const hasHg = fs.existsSync(path.join(paths.appPath, '.hg'))
-
-  const hasSourceControl = hasGit || hasHg
-  argv.push(hasSourceControl ? '--watch' : '--watchAll')
-}
 
 argv.push(
   '--config',
