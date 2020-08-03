@@ -64,9 +64,7 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   // These properties only exist before ejecting:
   ownPath: resolveOwn('.'),
-  ownNodeModules: resolveOwn('node_modules'), // This is empty on npm 3
-  appTypeDeclarations: resolveApp('src/modern-node-env.d.ts'),
-  ownTypeDeclarations: resolveOwn('lib/modern-node.d.ts')
+  ownNodeModules: resolveOwn('node_modules') // This is empty on npm 3
 }
 
 const ownPackageJson = require('../package.json')
