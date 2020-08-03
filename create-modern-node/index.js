@@ -1,7 +1,6 @@
 const chalk = require('chalk')
-const commander = require('commander')
+const minimist = require('minimist')
 const dns = require('dns')
-const envinfo = require('envinfo')
 const execSync = require('child_process').execSync
 const fs = require('fs-extra')
 const hyperquest = require('hyperquest')
@@ -14,8 +13,6 @@ const unpack = require('tar-pack').unpack
 const url = require('url')
 const validateProjectName = require('validate-npm-package-name')
 
-const packageJson = require('./package.json')
-
 // These files should be allowed to remain on a failed install,
 // but then silently removed during the next create.
 const errorLogFilePatterns = [
@@ -24,92 +21,39 @@ const errorLogFilePatterns = [
   'yarn-debug.log'
 ]
 
-const program = new commander.Command(packageJson.name)
-  .version(packageJson.version)
-  .arguments('<project-directory>')
-  .usage(`${chalk.green('<project-directory>')} [options]`)
-  .option('--verbose', 'print additional logs')
-  .option('--info', 'print environment debug info')
-  .option(
-    '--modern-version <alternativepackage>',
-    'use a non-standard version of modern-node'
-  )
-  .option('--use-npm')
-  .option('--use-pnp')
-  .option('--typescript')
-  .on('--help', () => {
-    console.log(`    Only ${chalk.green('<project-directory>')} is required.`)
-    console.log()
-    console.log(`    A custom ${chalk.cyan('--version')} can be one of:`)
-    console.log(`      - a specific npm version: ${chalk.green('0.8.2')}`)
-    console.log(`      - a specific npm tag: ${chalk.green('@next')}`)
-    console.log(
-      `      - a custom fork published on npm: ${chalk.green('my-modern-node')}`
-    )
-    console.log(
-      `      - a local path relative to the current working directory: ${chalk.green(
-        'file:../my-modern-node'
-      )}`
-    )
-    console.log(
-      `      - a .tgz archive: ${chalk.green(
-        'https://mysite.com/my-modern-node-0.8.2.tgz'
-      )}`
-    )
-    console.log(
-      `      - a .tar.gz archive: ${chalk.green(
-        'https://mysite.com/my-modern-node-0.8.2.tar.gz'
-      )}`
-    )
-    console.log(
-      `    It is not needed unless you specifically want to use a fork.`
-    )
-    console.log()
-    console.log(
-      `    If you have any problems, do not hesitate to file an issue:`
-    )
-    console.log(
-      `      ${chalk.cyan('https://github.com/sheerun/modern-node/issues/new')}`
-    )
-    console.log()
-  })
-  .parse(process.argv)
+var argv = minimist(process.argv.slice(2), {
+  string: ['version', 'internal-testing-template'],
+  boolean: ['typescript']
+})
 
-if (program.info) {
-  console.log(chalk.bold('\nEnvironment Info:'))
-  return envinfo
-    .run(
-      {
-        System: ['OS', 'CPU'],
-        Binaries: ['Node', 'npm', 'Yarn'],
-        npmPackages: ['modern-node'],
-        npmGlobalPackages: ['create-modern-node']
-      },
-      {
-        duplicates: true,
-        showNotFound: true
-      }
-    )
-    .then(console.log)
-}
+if (argv.help || argv._.length === 0 || argv.version === true) {
+  console.log(`Usage: create-modern-node ${chalk.green(
+    '<project-directory>'
+  )} [options]
 
-const projectName = program.args[0]
+Options:
+  --version <version>  use a non-standard version of modern-node (see below)
+  --typescript
 
-if (typeof projectName === 'undefined') {
-  console.error('Please specify the project directory:')
-  console.log(
-    `  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`
-  )
-  console.log()
-  console.log('For example:')
-  console.log(
-    `  ${chalk.cyan(program.name())} ${chalk.green('my-node-module')}`
-  )
-  console.log()
-  console.log(
-    `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
-  )
-  process.exit(1)
+Only ${chalk.green('<project-directory>')} is required.
+A custom ${chalk.cyan('--version')} can be one of:
+  - a specific npm version: ${chalk.green('0.8.2')}
+  - a specific npm tag: ${chalk.green('@next')}
+  - a custom fork published on npm: ${chalk.green('my-modern-node')}
+  - a local path relative to the current working directory: ${chalk.green(
+    'file:../my-modern-node'
+  )}
+  - a .tgz archive: ${chalk.green(
+    'https://mysite.com/my-modern-node-0.8.2.tgz'
+  )}
+  - a .tar.gz archive: ${chalk.green(
+    'https://mysite.com/my-modern-node-0.8.2.tar.gz'
+  )}
+
+If you have any problems, do not hesitate to file an issue:
+${chalk.cyan('https://github.com/sheerun/modern-node/issues/new')}
+`)
+  process.exit(!argv.help)
 }
 
 function printValidationResults (results) {
@@ -120,34 +64,17 @@ function printValidationResults (results) {
   }
 }
 
-const hiddenProgram = new commander.Command()
-  .option(
-    '--internal-testing-template <path-to-template>',
-    '(internal usage only, DO NOT RELY ON THIS) ' +
-      'use a non-standard application template'
-  )
-  .allowUnknownOption()
-  .parse(process.argv)
+const projectName = argv._[0]
 
 createApp(
   projectName,
-  program.verbose,
-  program.modernVersion,
-  program.useNpm,
-  program.usePnp,
-  program.typescript,
-  hiddenProgram.internalTestingTemplate
+  argv.verbose,
+  argv.version,
+  argv.typescript,
+  argv['internal-testing-template']
 )
 
-function createApp (
-  name,
-  verbose,
-  version,
-  useNpm,
-  usePnp,
-  useTypescript,
-  template
-) {
+function createApp (name, verbose, version, useTypescript, template) {
   const root = path.resolve(name)
   const appName = path.basename(root)
 
@@ -169,27 +96,11 @@ function createApp (
     JSON.stringify(packageJson, null, 2) + os.EOL
   )
 
-  const useYarn = useNpm ? false : shouldUseYarn()
+  const useYarn = shouldUseYarn()
   const originalDirectory = process.cwd()
   process.chdir(root)
   if (!useYarn && !checkThatNpmCanReadCwd()) {
     process.exit(1)
-  }
-
-  if (useYarn && usePnp) {
-    const yarnInfo = checkYarnVersion()
-    if (!yarnInfo.hasMinYarnPnp) {
-      if (yarnInfo.yarnVersion) {
-        console.log(
-          chalk.yellow(
-            `You are using Yarn ${yarnInfo.yarnVersion} together with the --use-pnp flag, but Plug'n'Play is only supported starting from the 1.12 release.\n\n` +
-              `Please update to Yarn 1.12 or higher for a better, fully supported experience.\n`
-          )
-        )
-      }
-      // 1.11 had an issue with webpack-dev-middleware, so better not use PnP with it (never reached stable, but still)
-      usePnp = false
-    }
   }
 
   run(
@@ -200,7 +111,6 @@ function createApp (
     originalDirectory,
     template,
     useYarn,
-    usePnp,
     useTypescript
   ).catch(reason => {
     console.log()
@@ -250,7 +160,7 @@ function shouldUseYarn () {
   }
 }
 
-function install (root, useYarn, usePnp, dependencies, verbose, isOnline) {
+function install (root, useYarn, dependencies, verbose, isOnline) {
   return new Promise((resolve, reject) => {
     let command
     let args
@@ -259,9 +169,6 @@ function install (root, useYarn, usePnp, dependencies, verbose, isOnline) {
       args = ['add', '--exact', '--dev']
       if (!isOnline) {
         args.push('--offline')
-      }
-      if (usePnp) {
-        args.push('--enable-pnp')
       }
       ;[].push.apply(args, dependencies)
 
@@ -287,12 +194,6 @@ function install (root, useYarn, usePnp, dependencies, verbose, isOnline) {
         '--dev',
         'error'
       ].concat(dependencies)
-
-      if (usePnp) {
-        console.log(chalk.yellow("NPM doesn't support PnP."))
-        console.log(chalk.yellow('Falling back to the regular installs.'))
-        console.log()
-      }
     }
 
     if (verbose) {
@@ -353,7 +254,6 @@ async function run (
   originalDirectory,
   template,
   useYarn,
-  usePnp,
   useTypescript
 ) {
   if (tryGitInit(root)) {
@@ -371,7 +271,7 @@ async function run (
 
   console.log(`Installing ${chalk.cyan(packageName)}...`)
 
-  await install(root, useYarn, usePnp, allDependencies, verbose, isOnline)
+  await install(root, useYarn, allDependencies, verbose, isOnline)
   checkNodeVersion(packageName)
   setCaretRangeForRuntimeDeps(packageName)
 
@@ -505,27 +405,6 @@ function getPackageName (installPackage) {
     return Promise.resolve(installPackageJson.name)
   }
   return Promise.resolve(installPackage)
-}
-
-function checkYarnVersion () {
-  let hasMinYarnPnp = false
-  let yarnVersion = null
-  try {
-    yarnVersion = execSync('yarnpkg --version')
-      .toString()
-      .trim()
-    let trimmedYarnVersion = /^(.+?)[-+].+$/.exec(yarnVersion)
-    if (trimmedYarnVersion) {
-      trimmedYarnVersion = trimmedYarnVersion.pop()
-    }
-    hasMinYarnPnp = semver.gte(trimmedYarnVersion || yarnVersion, '1.12.0')
-  } catch (err) {
-    // ignore
-  }
-  return {
-    hasMinYarnPnp: hasMinYarnPnp,
-    yarnVersion: yarnVersion
-  }
 }
 
 function checkNodeVersion (packageName) {
